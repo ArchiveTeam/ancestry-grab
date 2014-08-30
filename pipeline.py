@@ -197,7 +197,7 @@ class WgetArgs(object):
         item['item_type'] = item_type
         item['item_value'] = item_value
         
-        assert item_type in ("mundiasurnames", "genealogy", "familytreemaker", "familyorigins")
+        assert item_type in ("mundiasurnames", "genealogy", "familytreemaker", "familyorigins", "genforum")
         
         if item_type == 'mundiasurnames':
             assert ':' in item_value
@@ -265,8 +265,7 @@ class WgetArgs(object):
             else:
                 raise Exception('Unknown item')
         elif item_type == "genforum":
-            
-            wget_args.append('')
+            wget_args.append('http://genforum.genealogy.com/{0}/'.format(item_value))
             wget_args.extend(["--recursive", "--level=inf"])
         else:
             raise Exception('Unknown item')
