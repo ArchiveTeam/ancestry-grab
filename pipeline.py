@@ -287,9 +287,9 @@ class WgetArgs(object):
 project = Project(
     title="Ancestry",
     project_html="""
-        <img class="project-logo" alt="Project logo" src="http://archiveteam.org/images/d/da/MundiaLogoMedium.png" height="50px" title=""/>
-        <h2>www.mundia.com <span class="links"><a href="http://www.mundia.com/">Website</a> &middot; <a href="http://tracker.archiveteam.org/mundia/">Leaderboard</a></span></h2>
-        <p>Archiving mundia.com.</p>
+        <img class="project-logo" alt="Project logo" src="http://archiveteam.org/images/d/de/Ancestry_Logo.jpg" height="50px" title=""/>
+        <h2>www.ancestry.com <span class="links"><a href="http://www.ancestry.com/">Website</a> &middot; <a href="http://tracker.archiveteam.org/ancestry/">Leaderboard</a></span></h2>
+        <p>Archiving websites shutdown by ancestry.com.</p>
     """,
     utc_deadline=datetime.datetime(2014, 9, 30, 23, 59, 0)
 )
