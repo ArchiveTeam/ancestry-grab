@@ -266,6 +266,7 @@ class WgetArgs(object):
                 raise Exception('Unknown item')
         elif item_type == "genforum":
             wget_args.append('http://genforum.genealogy.com/{0}/'.format(item_value))
+            wget_args.append('http://genforum.com/{0}/'.format(item_value))
             wget_args.extend(["--recursive", "--level=inf"])
         else:
             raise Exception('Unknown item')
