@@ -27,17 +27,91 @@ read_file = function(file)
   end
 end
 
--- wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_parsed, iri, verdict, reason)
---   local url = urlpos["url"]["url"]
---   
---   -- Don't download the favicon over and over again
---   if url == "http://wallbase.cc/fav.gif" then
---     return false
---   
---   else
---     return verdict
---   end
--- end
+wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_parsed, iri, verdict, reason)
+  local url = urlpos["url"]["url"]
+
+  if item_type == "genealogy" then
+    if string.match(url, "www%.familyorigins%.com") then
+      return false
+    elseif string.match(url, "familytreemaker%.genealogy%.com") then
+      return false
+    else
+      return verdict
+    end
+  elseif item_type == "familytreemaker" then
+    if string.match(url, "www%.familyorigins%.com") then
+      return false
+    elseif string.match(url, "www%.genealogy%.com") then
+      return false
+    else
+      return verdict
+    end
+  elseif item_type == "familyorigins" then
+    if string.match(url, "www%.genealogy%.com") then
+      return false
+    elseif string.match(url, "familytreemaker%.genealogy%.com") then
+      return false
+    else
+      return verdict
+    end
+  elseif item_type == "mundiasurnames" then
+    return verdict
+  else
+    return false
+  end
+  
+  if item_type == "genealogy" or
+    item_type == "familytreemaker" or
+    item_type == "familyorigins" then
+    local url_kind = os.getenv('url_kind')
+    local url_first = os.getenv('url_first')
+    local url_second = os.getenv('url_second')
+    local url_third = os.getenv('url_third')
+    local url_name = os.getenv('url_name')
+    if string.match(url, "%.genealogy%.com/genealogy/") or
+      string.match(url, "%.familyorigins%.com/genealogy/")then
+      --example url: http://www.genealogy.com/genealogy/users/s/c/h/Aaron-D-Scholl/
+      local url_kind_url = string.match(url, "[a-z]+%.[a-z]+.com/genealogy/([^/]+)/[^/]+/[^/]+/[^/]+/[^/]+/")
+      local url_first_url = string.match(url, "[a-z]+%.[a-z]+.com/genealogy/[^/]+/([^/]+)/[^/]+/[^/]+/[^/]+/")
+      local url_second_url = string.match(url, "[a-z]+%.[a-z]+.com/genealogy/[^/]+/[^/]+/([^/]+)/[^/]+/[^/]+/")
+      local url_third_url = string.match(url, "[a-z]+%.[a-z]+.com/genealogy/[^/]+/[^/]+/[^/]+/([^/]+)/[^/]+/")
+      local url_name_url = string.match(url, "[a-z]+%.[a-z]+.com/genealogy/[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/")
+      if url_kind_url ~= url_kind or
+        url_first_url ~= url_first or
+        url_second_url ~= url_second or
+        url_third_url ~= url_third or
+        url_name_url ~= url_name then
+        return false
+      else
+        return verdict
+      end
+    elseif string.match(url, "%.genealogy%.com") or
+      string.match(url, "%.familyorigins%.com") then
+      --example url: http://www.genealogy.com/users/s/c/h/Aaron-D-Scholl/
+      local url_kind_url = string.match(url, "[a-z]+%.[a-z]+.com/([^/]+)/[^/]+/[^/]+/[^/]+/[^/]+/")
+      local url_first_url = string.match(url, "[a-z]+%.[a-z]+.com/[^/]+/([^/]+)/[^/]+/[^/]+/[^/]+/")
+      local url_second_url = string.match(url, "[a-z]+%.[a-z]+.com/[^/]+/[^/]+/([^/]+)/[^/]+/[^/]+/")
+      local url_third_url = string.match(url, "[a-z]+%.[a-z]+.com/[^/]+/[^/]+/[^/]+/([^/]+)/[^/]+/")
+      local url_name_url = string.match(url, "[a-z]+%.[a-z]+.com/[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/")
+      if url_kind_url ~= url_kind or
+        url_first_url ~= url_first or
+        url_second_url ~= url_second or
+        url_third_url ~= url_third or
+        url_name_url ~= url_name then
+        return false
+      else
+        return verdict
+      end
+    else
+      return verdict
+    end
+  elseif item_type == "mundiasurnames" then
+    return verdict
+  else
+    return false
+  end
+end
+
 
 wget.callbacks.get_urls = function(file, url, is_css, iri)
   local urls = {}
@@ -166,9 +240,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
     table.insert(urls, { url="http://www.mundia.com/"..country_code.."/Search/Results?surname="..surname_upper.."&birthPlace=Venezuela" })
     table.insert(urls, { url="http://www.mundia.com/"..country_code.."/Search/Results?surname="..surname_upper.."&birthPlace=Vietnam" })
     table.insert(urls, { url="http://www.mundia.com/"..country_code.."/Search/Results?surname="..surname_upper.."&birthPlace=Yemen" })
-    
-    
-end
+  end
   
   --example url: http://www.mundia.com/pk/Search/Results?surname=ABDULA&birthPlace=Verenigde%20Staten
   if string.match(url, "%.mundia%.com/[^/]+/Search/Results?surname=[^/&]+%&birthPlace=[^<>/&]+") then
