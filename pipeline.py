@@ -58,7 +58,7 @@ if not WGET_LUA:
 # It will be added to the WARC files and reported to the tracker.
 VERSION = "20140824.01"
 USER_AGENT = 'ArchiveTeam'
-TRACKER_ID = 'mundia'
+TRACKER_ID = 'ancestry'
 TRACKER_HOST = 'tracker.archiveteam.org'
 
 
@@ -145,7 +145,7 @@ def get_hash(filename):
 
 CWD = os.getcwd()
 PIPELINE_SHA1 = get_hash(os.path.join(CWD, 'pipeline.py'))
-LUA_SHA1 = get_hash(os.path.join(CWD, 'mundia.lua'))
+LUA_SHA1 = get_hash(os.path.join(CWD, 'ancestry.lua'))
 
 
 def stats_id_function(item):
@@ -165,7 +165,7 @@ class WgetArgs(object):
             WGET_LUA,
             "-U", USER_AGENT,
             "-nv",
-            "--lua-script", "mundia.lua",
+            "--lua-script", "ancestry.lua",
             "-o", ItemInterpolation("%(item_dir)s/wget.log"),
             "--no-check-certificate",
             "--output-document", ItemInterpolation("%(item_dir)s/wget.tmp"),
@@ -180,13 +180,16 @@ class WgetArgs(object):
             "--tries", "inf",
             "--span-hosts",
             "--waitretry", "30",
-            "--domains", "mundia.com",
+            "--domains", "mundia.com,genealogy.com,familyorigins.com",
             "--warc-file", ItemInterpolation("%(item_dir)s/%(warc_file_base)s"),
             "--warc-header", "operator: Archive Team",
-            "--warc-header", "mundia-dld-script-version: " + VERSION,
-            "--warc-header", ItemInterpolation("mundia-user: %(item_name)s"),
+            "--warc-header", "ancestry-dld-script-version: " + VERSION,
+            "--warc-header", ItemInterpolation("ancestry-user: %(item_name)s"),
         ]
         
+        #example item: genealogy:users:c:o:x:Helen-Cox-NJ
+        #example item: familytreemaker:users:s:c:h:Aaron-J-Schwartz
+        #example item: familyorigins:users:s:c:h:Beverly-G-Schweppe
         item_name = item['item_name']
         assert ':' in item_name
         item_type, item_value = item_name.split(':', 1)
@@ -194,14 +197,73 @@ class WgetArgs(object):
         item['item_type'] = item_type
         item['item_value'] = item_value
         
-        assert item_type in ('surnames')
+        assert item_type in ("mundiasurnames", "genealogy", "familytreemaker", "familyorigins")
         
-        if item_type == 'surnames':
+        if item_type == 'mundiasurnames':
             assert ':' in item_value
             item_lang, item_surname = item_value.split(':', 1)
+            assert item_lang
+            assert item_surname
             item['item_lang'] = item_lang
             item['item_surname'] = item_surname
             wget_args.append('http://www.mundia.com/{0}/surnames/{1}'.format(item_lang, item_surname))
+        elif item_type == "genealogy":
+            if "users" in item_value:
+                assert ':' in item_name
+                url_kind, url_first, url_second, url_third, url_name = item_value.split(":")
+                assert url_kind
+                assert url_first
+                assert url_second
+                assert url_third
+                assert url_name
+                item['url_kind'] = url_kind
+                item['url_first'] = url_first
+                item['url_second'] = url_second
+                item['url_third'] = url_third
+                item['url_name'] = url_name
+                wget_args.append('http://www.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
+                wget_args.append('http://www.genealogy.com/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
+            else:
+                raise Exception('Unknown item')
+        elif item_type == "familytreemaker":
+            if "users" in item_value:
+                assert ':' in item_name
+                url_kind, url_first, url_second, url_third, url_name = item_value.split(":")
+                assert url_kind
+                assert url_first
+                assert url_second
+                assert url_third
+                assert url_name
+                item['url_kind'] = url_kind
+                item['url_first'] = url_first
+                item['url_second'] = url_second
+                item['url_third'] = url_third
+                item['url_name'] = url_name
+                wget_args.append('http://familytreemaker.genealogy.com/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
+                wget_args.append('http://familytreemaker.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
+            else:
+                raise Exception('Unknown item')
+        elif item_type == "familyorigins":
+            if "users" in item_value:
+                assert ':' in item_name
+                url_kind, url_first, url_second, url_third, url_name = item_value.split(":")
+                assert url_kind
+                assert url_first
+                assert url_second
+                assert url_third
+                assert url_name
+                item['url_kind'] = url_kind
+                item['url_first'] = url_first
+                item['url_second'] = url_second
+                item['url_third'] = url_third
+                item['url_name'] = url_name
+                wget_args.append('http://www.familyorigins.com/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
+                wget_args.append('http://www.familyorigins.com/genealogy/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
+            else:
+                raise Exception('Unknown item')
+        elif item_type == "genforum":
+        else:
+            raise Exception('Unknown item')
         
         if 'bind_address' in globals():
             wget_args.extend(['--bind-address', globals()['bind_address']])
@@ -218,7 +280,7 @@ class WgetArgs(object):
 # This will be shown in the warrior management panel. The logo should not
 # be too big. The deadline is optional.
 project = Project(
-    title="Mundia",
+    title="Ancestry",
     project_html="""
         <img class="project-logo" alt="Project logo" src="http://archiveteam.org/images/d/da/MundiaLogoMedium.png" height="50px" title=""/>
         <h2>www.mundia.com <span class="links"><a href="http://www.mundia.com/">Website</a> &middot; <a href="http://tracker.archiveteam.org/mundia/">Leaderboard</a></span></h2>
@@ -231,7 +293,7 @@ pipeline = Pipeline(
     CheckIP(),
     GetItemFromTracker("http://%s/%s" % (TRACKER_HOST, TRACKER_ID), downloader,
         VERSION),
-    PrepareDirectories(warc_prefix="mundia"),
+    PrepareDirectories(warc_prefix="ancestry"),
     WgetDownload(
         WgetArgs(),
         max_tries=10,
