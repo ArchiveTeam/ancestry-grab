@@ -4,6 +4,8 @@ JSON = (loadfile "JSON.lua")()
 
 local url_count = 0
 local tries = 0
+local item_type = os.getenv('item_type')
+local item_value = os.getenv('item_value')
 
 load_json_file = function(file)
   if file then
@@ -105,8 +107,18 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     else
       return verdict
     end
+    
   elseif item_type == "mundiasurnames" then
     return verdict
+    
+  elseif item_type == "genforum" then
+    local item_value_url = string.match(url, "genforum%.genealogy%.com/([^/])/")
+    if item_value_url ~= item_value then
+      return false
+    else
+      return verdict
+    end
+    
   else
     return false
   end
