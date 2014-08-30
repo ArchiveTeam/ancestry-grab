@@ -112,9 +112,20 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   elseif item_type == "mundiasurnames" then
     return verdict
   elseif item_type == "genforum" then
-    local item_value_url = string.match(url, "genforum%.genealogy%.com/([^/])/")
-    if item_value_url ~= item_value then
-      return false
+    if string.match(url, "genforum%.genealogy%.com/([^/]+)/") the
+      local item_value_url = string.match(url, "genforum%.genealogy%.com/([^/])/")
+      if item_value_url ~= item_value then
+        return false
+      else
+        return verdict
+      end
+    elseif string.match(url, "genforum%.com/([^/]+)/") then
+      local item_value_url = string.match(url, "genforum%.com/([^/])/")
+      if item_value_url ~= item_value then
+        return false
+      else
+        return verdict
+      end
     else
       return verdict
     end
