@@ -1,6 +1,6 @@
 ----TODO----
 --Deeper url scraping for mundiasurnames
---Add support for cgi urls for genforum
+--DONE Add support for cgi urls for genforum
 --Add support for myfamily
 
 
@@ -38,6 +38,7 @@ end
 wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_parsed, iri, verdict, reason)
   local url = urlpos["url"]["url"]
   local html = urlpos["link_expect_html"]
+  local html = nil
 
   if item_type == "genealogy" then
     if string.match(url, "www%.familyorigins%.com") then
@@ -140,6 +141,20 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
         return false
       else
         return verdict
+      end
+    elseif string.match(url, "genforum%.genealogy%.com[.]+"..item_value) or
+      string.match(url, "genforum%.com[.]+"..item_value) then
+      if string.match(url, ":::") then
+        if not html then
+          html = read_file(file)
+        end
+        if not string.match(html, '<FONT FACE=[^>]+><B><[^<]+</A>[^<]+<A[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+<![^>]+><LI><[^<]+</A>[^/]+</B>[^<]+<I>[^<]+</I>[^<]+</UL>[^<]+<[^<]+<B><[^<]+</A>[^<]+<[^<]+</A></B></font><BR>') then
+          return false
+        else
+          return true
+        end
+      else
+        return true
       end
     elseif
       if html == 0 then
