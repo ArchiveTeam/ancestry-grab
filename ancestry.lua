@@ -148,7 +148,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
         if not html then
           html = read_file(file)
         end
-        if not string.match(html, '<FONT FACE=[^>]+><B><[^<]+</A>[^<]+<A[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+<![^>]+><LI><[^<]+</A>[^/]+</B>[^<]+<I>[^<]+</I>[^<]+</UL>[^<]+<[^<]+<B><[^<]+</A>[^<]+<[^<]+</A></B></font><BR>') then
+        if string.match(html, '<FONT FACE=[^>]+><B><[^<]+</A>[^<]+<A[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<[^<]+<B><[^<]+</A>[^<]+<[^<]+</A></B></font><BR>') then
           return false
         else
           return true
