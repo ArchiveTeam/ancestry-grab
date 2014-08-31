@@ -1,3 +1,9 @@
+----TODO----
+--Deeper url scraping for mundiasurnames
+--Add support for cgi urls for genforum
+--Add support for myfamily
+
+
 dofile("urlcode.lua")
 dofile("table_show.lua")
 JSON = (loadfile "JSON.lua")()
