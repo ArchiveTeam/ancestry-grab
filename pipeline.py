@@ -180,7 +180,7 @@ class WgetArgs(object):
             "--tries", "inf",
             "--span-hosts",
             "--waitretry", "30",
-            "--domains", "mundia.com,genealogy.com,familyorigins.com",
+            "--domains", "mundia.com,genealogy.com,familyorigins.com,genforum.com",
             "--warc-file", ItemInterpolation("%(item_dir)s/%(warc_file_base)s"),
             "--warc-header", "operator: Archive Team",
             "--warc-header", "ancestry-dld-script-version: " + VERSION,
