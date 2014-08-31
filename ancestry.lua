@@ -31,6 +31,7 @@ end
 
 wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_parsed, iri, verdict, reason)
   local url = urlpos["url"]["url"]
+  local html = urlpos["link_expect_html"]
 
   if item_type == "genealogy" then
     if string.match(url, "www%.familyorigins%.com") then
@@ -72,8 +73,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     local url_second = os.getenv('url_second')
     local url_third = os.getenv('url_third')
     local url_name = os.getenv('url_name')
-    if string.match(url, "%.genealogy%.com/genealogy/") or
-      string.match(url, "%.familyorigins%.com/genealogy/")then
+    if (string.match(url, "%.genealogy%.com/genealogy/") or string.match(url, "%.familyorigins%.com/genealogy/")) and
+      html == 1 then
       --example url: http://www.genealogy.com/genealogy/users/s/c/h/Aaron-D-Scholl/
       local url_kind_url = string.match(url, "[a-z]+%.[a-z]+.com/genealogy/([^/]+)/[^/]+/[^/]+/[^/]+/[^/]+/")
       local url_first_url = string.match(url, "[a-z]+%.[a-z]+.com/genealogy/[^/]+/([^/]+)/[^/]+/[^/]+/[^/]+/")
@@ -89,8 +90,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       else
         return verdict
       end
-    elseif string.match(url, "%.genealogy%.com") or
-      string.match(url, "%.familyorigins%.com") then
+    elseif (string.match(url, "%.genealogy%.com") or string.match(url, "%.familyorigins%.com"))
+      and html == 1 then
       --example url: http://www.genealogy.com/users/s/c/h/Aaron-D-Scholl/
       local url_kind_url = string.match(url, "[a-z]+%.[a-z]+.com/([^/]+)/[^/]+/[^/]+/[^/]+/[^/]+/")
       local url_first_url = string.match(url, "[a-z]+%.[a-z]+.com/[^/]+/([^/]+)/[^/]+/[^/]+/[^/]+/")
@@ -106,28 +107,40 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       else
         return verdict
       end
+    elseif html == 0 then
+      return true
+    else
+      return false
+    end
+  elseif item_type == "mundiasurnames" then
+    if html == 0 then
+      return true
     else
       return verdict
     end
-  elseif item_type == "mundiasurnames" then
-    return verdict
   elseif item_type == "genforum" then
-    if string.match(url, "genforum%.genealogy%.com/([^/]+)/") the
+    if string.match(url, "genforum%.genealogy%.com/([^/]+)/") and
+      html == 1 then
       local item_value_url = string.match(url, "genforum%.genealogy%.com/([^/])/")
       if item_value_url ~= item_value then
         return false
       else
         return verdict
       end
-    elseif string.match(url, "genforum%.com/([^/]+)/") then
+    elseif string.match(url, "genforum%.com/([^/]+)/") and
+      html == 1 then
       local item_value_url = string.match(url, "genforum%.com/([^/])/")
       if item_value_url ~= item_value then
         return false
       else
         return verdict
       end
+    elseif
+      if html == 0 then
+        return true
+      end
     else
-      return verdict
+      return false
     end
   else
     return false
