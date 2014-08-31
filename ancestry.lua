@@ -83,11 +83,11 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     if (string.match(url, "%.genealogy%.com/genealogy/") or string.match(url, "%.familyorigins%.com/genealogy/")) and
       html == 1 then
       --example url: http://www.genealogy.com/genealogy/users/s/c/h/Aaron-D-Scholl/
-      local url_kind_url = string.match(url, "[a-z]+%.[a-z]+.com/genealogy/([^/]+)/[^/]+/[^/]+/[^/]+/[^/]+/")
-      local url_first_url = string.match(url, "[a-z]+%.[a-z]+.com/genealogy/[^/]+/([^/]+)/[^/]+/[^/]+/[^/]+/")
-      local url_second_url = string.match(url, "[a-z]+%.[a-z]+.com/genealogy/[^/]+/[^/]+/([^/]+)/[^/]+/[^/]+/")
-      local url_third_url = string.match(url, "[a-z]+%.[a-z]+.com/genealogy/[^/]+/[^/]+/[^/]+/([^/]+)/[^/]+/")
-      local url_name_url = string.match(url, "[a-z]+%.[a-z]+.com/genealogy/[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/")
+      local url_kind_url = string.match(url, "[a-z]+%.[a-z]+%.com/genealogy/([^/]+)/[^/]+/[^/]+/[^/]+/[^/]+/")
+      local url_first_url = string.match(url, "[a-z]+%.[a-z]+%.com/genealogy/[^/]+/([^/]+)/[^/]+/[^/]+/[^/]+/")
+      local url_second_url = string.match(url, "[a-z]+%.[a-z]+%.com/genealogy/[^/]+/[^/]+/([^/]+)/[^/]+/[^/]+/")
+      local url_third_url = string.match(url, "[a-z]+%.[a-z]+%.com/genealogy/[^/]+/[^/]+/[^/]+/([^/]+)/[^/]+/")
+      local url_name_url = string.match(url, "[a-z]+%.[a-z]+%.com/genealogy/[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/")
       if url_kind_url ~= url_kind or
         url_first_url ~= url_first or
         url_second_url ~= url_second or
@@ -100,11 +100,11 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     elseif (string.match(url, "%.genealogy%.com") or string.match(url, "%.familyorigins%.com"))
       and html == 1 then
       --example url: http://www.genealogy.com/users/s/c/h/Aaron-D-Scholl/
-      local url_kind_url = string.match(url, "[a-z]+%.[a-z]+.com/([^/]+)/[^/]+/[^/]+/[^/]+/[^/]+/")
-      local url_first_url = string.match(url, "[a-z]+%.[a-z]+.com/[^/]+/([^/]+)/[^/]+/[^/]+/[^/]+/")
-      local url_second_url = string.match(url, "[a-z]+%.[a-z]+.com/[^/]+/[^/]+/([^/]+)/[^/]+/[^/]+/")
-      local url_third_url = string.match(url, "[a-z]+%.[a-z]+.com/[^/]+/[^/]+/[^/]+/([^/]+)/[^/]+/")
-      local url_name_url = string.match(url, "[a-z]+%.[a-z]+.com/[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/")
+      local url_kind_url = string.match(url, "[a-z]+%.[a-z]+%.com/([^/]+)/[^/]+/[^/]+/[^/]+/[^/]+/")
+      local url_first_url = string.match(url, "[a-z]+%.[a-z]+%.com/[^/]+/([^/]+)/[^/]+/[^/]+/[^/]+/")
+      local url_second_url = string.match(url, "[a-z]+%.[a-z]+%.com/[^/]+/[^/]+/([^/]+)/[^/]+/[^/]+/")
+      local url_third_url = string.match(url, "[a-z]+%.[a-z]+%.com/[^/]+/[^/]+/[^/]+/([^/]+)/[^/]+/")
+      local url_name_url = string.match(url, "[a-z]+%.[a-z]+%.com/[^/]+/[^/]+/[^/]+/[^/]+/([^/]+)/")
       if url_kind_url ~= url_kind or
         url_first_url ~= url_first or
         url_second_url ~= url_second or
@@ -298,7 +298,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       table.insert(urls, { url="http://www.mundia.com/"..country_code.."/Search/Results?surname="..surname_upper.."&birthPlace=Yemen" })
     end
     --example url: http://www.mundia.com/pk/Search/Results?surname=ABDULA&birthPlace=Verenigde%20Staten
-    if string.match(url, "%.mundia%.com/[^/]+/Search/Results?surname=[^/&]+%&birthPlace=[^<>/&]+") then
+    if string.match(url, "%.mundia%.com/[^/]+/Search/Results%?surname=[^/&]+&birthPlace=[^<>/&]+") then
       if not html then
         html = read_file(file)
       end
@@ -308,12 +308,12 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         table.insert(urls, { url=mundia_url..person_url })
       end
       --example string: <a class="tree" href="/pk/Tree/Family/5586782/-1432906874"><span class="view-tree">Stamboom tonen</span></a>
-      for tree_url in string.gmatch(html, '<a class="[^"/<>]+" href="(/[^/]+/Tree/Family/[^/]/[^<>/]+)"><span class="view-tree">[^<>/]+</span></a>') do
+      for tree_url in string.gmatch(html, '<a class="[^"/<>]+" href="(/[^/]+/Tree/Family/[^/]/[^<>/]+)"><span class="view%-tree">[^<>/]+</span></a>') do
         --------------Multiple links possible as results probably - chfoo - help?-------------------
         table.insert(urls, { url=mundia_url..tree_url })
       end
       --example string: <img src="http://mediasvc.ancestry.com/v2/image/namespaces/1093/media/11f96e77-c39c-4ca4-b659-32f67aa8d129.jpg?client=TreeService&MaxSide=96" width="68" alt="Foto" /></a>
-      for person_image in string.gmatch(html, '<img src="(http://mediasvc%.ancestry%.com/v[^/]+/image/namespaces/[^/]+/media/[^/%.]+%.jpg%?client=TreeService&MaxSide=[^"]+)" width="[^"]+" alt="[^"]+" /></a>') do
+      for person_image in string.gmatch(html, '<img src="(http://mediasvc%.ancestry%.com/v[^/]+/image/namespaces/[^/]+/media/[^/%.]+%.jpg%?client=TreeService&MaxSide=[^"]+)" width="[^"]+" alt="[^"]+"[^/]+/></a>') do
         --------------Multiple links possible as results probably - chfoo - help?-------------------
         table.insert(urls, { url=person_image })
         for person_image_big in string.gmatch(person_image, "(http://mediasvc%.ancestry%.com/v[^/]+/image/namespaces/[^/]+/media/[^/%.]+%.jpg%?client=TreeService)&MaxSide=[.]+") do
