@@ -177,7 +177,6 @@ class WgetArgs(object):
             "--no-parent",
             "--page-requisites",
             "--timeout", "30",
-            "-x", "--load-cookies", "cookies.txt"
             "--tries", "inf",
             "--span-hosts",
             "--waitretry", "30",
