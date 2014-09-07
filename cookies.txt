@@ -2,4 +2,16 @@
 # This content may be pasted into a cookies.txt file and used by wget
 # Example:  wget -x --load-cookies cookies.txt http://www.mundia.com/us/
 #
+www.mundia.com	FALSE	/ca	FALSE	1441651931	ClientTimeZone	120
+www.mundia.com	FALSE	/us	FALSE	1441651946	ClientTimeZone	120
 .mundia.com	TRUE	/	FALSE	1410720138.99169	ShowShutdownNotice	shown
+.mundia.com	TRUE	/	FALSE	0	LCID	1033
+.mundia.com	TRUE	/	FALSE	1412707930.692586	PreferredLcid	1033
+.mundia.com	TRUE	/	FALSE	1725735130.692587	PreferredLcid_Date	09/07/2014 12:52:11
+.mundia.com	TRUE	/	FALSE	1412707946.154583	CountryId	2
+.mundia.com	TRUE	/	FALSE	0	ASP.NET_SessionId	su5bmh3ogkt5jwtenfjgww0b
+.mundia.com	TRUE	/	FALSE	0	s_cc	true
+.mundia.com	TRUE	/	FALSE	0	s_sq	%5B%5BB%5D%5D
+.mundia.com	TRUE	/	FALSE	1473187946	__utma	65702129.263724383.1410115412.1410115412.1410115412.1
+.mundia.com	TRUE	/	FALSE	0	__utmc	65702129
+.mundia.com	TRUE	/	FALSE	1425883946	__utmz	65702129.1410115412.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
