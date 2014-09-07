@@ -156,10 +156,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       else
         return true
       end
-    elseif
-      if html == 0 then
-        return true
-      end
+    elseif html == 0 then
+      return true
     else
       return false
     end
