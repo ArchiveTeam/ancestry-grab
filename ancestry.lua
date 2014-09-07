@@ -339,7 +339,7 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
   local status_code = http_stat["statcode"]
   
   url_count = url_count + 1
-  io.stdout:write(url_count .. "=" .. status_code .. " " .. url["url"] .. ".  \r")
+  io.stdout:write(url_count .. "=" .. status_code .. " " .. url["url"] .. ".  \n")
   io.stdout:flush()
   
   if status_code >= 500 or
