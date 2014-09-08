@@ -340,14 +340,14 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       end
     end
   elseif item_type == "genealogy" then
-    if string.match(url, "http[s]?://genealogy%.com/users/") then
-      local genealogybase = string.match(url, "(http[s]?://genealogy%.com/)users/")
-      local genealogyrest = string.match(url, "http[s]?://genealogy%.com/(users/.+)")
+    if string.match(url, "http[s]?://[^%.]+%.genealogy%.com/users/") then
+      local genealogybase = string.match(url, "(http[s]?://[^%.]+%.genealogy%.com/)users/")
+      local genealogyrest = string.match(url, "http[s]?://[^%.]+%.genealogy%.com/(users/.+)")
       local genealogyurl = genealogybase.."genealogy/"..genealogyrest
       table.insert(urls, { url=genealogyurl })
-    elseif string.match(url, "http[s]?://genealogy%.com/genealogy/") then
-      local genealogybase = string.match(url, "(http[s]?://genealogy%.com/)genealogy/")
-      local genealogyrest = string.match(url, "http[s]?://genealogy%.com/genealogy/(.+)")
+    elseif string.match(url, "http[s]?://[^%.]+%.genealogy%.com/genealogy/") then
+      local genealogybase = string.match(url, "(http[s]?://[^%.]+%.genealogy%.com/)genealogy/")
+      local genealogyrest = string.match(url, "http[s]?://[^%.]+%.genealogy%.com/genealogy/(.+)")
       local genealogyurl = genealogybase..genealogyrest
       table.insert(urls, { url=genealogyurl })
     end
