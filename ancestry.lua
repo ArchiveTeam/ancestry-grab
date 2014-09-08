@@ -13,6 +13,8 @@ local tries = 0
 local item_type = os.getenv('item_type')
 local item_value = os.getenv('item_value')
 
+local downloaded = {}
+
 load_json_file = function(file)
   if file then
     local f = io.open(file)
@@ -39,7 +41,11 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   local url = urlpos["url"]["url"]
   local html = urlpos["link_expect_html"]
   local html = nil
-
+  
+  if downloaded[url] == true then
+    return false
+  end
+  
   if item_type == "genealogy" then
     if string.match(url, "www%.familyorigins%.com") then
       return false
@@ -355,6 +361,10 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
   url_count = url_count + 1
   io.stdout:write(url_count .. "=" .. status_code .. " " .. url["url"] .. ".  \n")
   io.stdout:flush()
+  
+  if status_code >= 200 and status_code <= 399 then
+    downloaded[url.url] = true
+  end
   
   if status_code >= 500 or
     (status_code >= 400 and status_code ~= 404 and status_code ~= 403) then
