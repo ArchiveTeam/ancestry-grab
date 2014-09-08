@@ -40,6 +40,7 @@ end
 wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_parsed, iri, verdict, reason)
   local url = urlpos["url"]["url"]
   local html = urlpos["link_expect_html"]
+  local parenturl = parent["url"]
   local html = nil
   
   if downloaded[url] == true then
@@ -120,6 +121,9 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       else
         return verdict
       end
+    elseif (string.match(parenturl, "%.genealogy%.com/") or string.match(parenturl, "%.familyorigins%.com"))
+      and html == 1 then
+      return true
     elseif html == 0 then
       return true
     else
