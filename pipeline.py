@@ -223,6 +223,8 @@ class WgetArgs(object):
                 item['url_name'] = url_name
                 wget_args.append('http://www.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.append('http://www.genealogy.com/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
+                wget_args.append('http://www.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
+                wget_args.append('http://www.genealogy.com/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.extend(["--recursive", "--level=inf"])
             else:
                 raise Exception('Unknown item')
@@ -242,6 +244,8 @@ class WgetArgs(object):
                 item['url_name'] = url_name
                 wget_args.append('http://familytreemaker.genealogy.com/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.append('http://familytreemaker.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
+                wget_args.append('http://familytreemaker.genealogy.com/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
+                wget_args.append('http://familytreemaker.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.extend(["--recursive", "--level=inf"])
             else:
                 raise Exception('Unknown item')
@@ -261,6 +265,8 @@ class WgetArgs(object):
                 item['url_name'] = url_name
                 wget_args.append('http://www.familyorigins.com/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.append('http://www.familyorigins.com/genealogy/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
+                wget_args.append('http://www.familyorigins.com/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
+                wget_args.append('http://www.familyorigins.com/genealogy/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.extend(["--recursive", "--level=inf"])
             else:
                 raise Exception('Unknown item')
