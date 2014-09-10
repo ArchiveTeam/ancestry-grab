@@ -130,10 +130,20 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return false
     end
   elseif item_type == "mundiasurnames" then
-    if html == 0 then
+    if string.match(url, "mundia%.com/[^/]+/surnames/][a-z0-9A-Z]+") then
+      return verdict
+    elseif string.match(url, "mundia%.com/[^/]+/Search/Results%?surname=[^&]+&birthPlace=") then
+      return verdict
+    elseif string.match(url, "mundia%.com/[^/]+/Person/[%-]?[0-9]+/[%-]?[0-9]+") then
+      return verdict
+    elseif string.match(url, "mundi%a.com/[^/]+/Tree/Family/[%-]?[0-9]+/[%-]?[0-9]+") then
+      return verdict
+    elseif string.match(url, "mundia%.com/[^/]+/Messages%?sendMessageTo=[^&]+&subject=") then
+      return verdict
+    elseif html == 0 then
       return true
     else
-      return verdict
+      return false
     end
   elseif item_type == "genforum" then
     if string.match(url, "genforum%.genealogy%.com/([^/]+)/") and
@@ -305,40 +315,40 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       table.insert(urls, { url="http://www.mundia.com/"..country_code.."/Search/Results?surname="..surname_upper.."&birthPlace=Vietnam" })
       table.insert(urls, { url="http://www.mundia.com/"..country_code.."/Search/Results?surname="..surname_upper.."&birthPlace=Yemen" })
     end
-    --example url: http://www.mundia.com/pk/Search/Results?surname=ABDULA&birthPlace=Verenigde%20Staten
-    if string.match(url, "%.mundia%.com/[^/]+/Search/Results%?surname=[^/&]+&birthPlace=[^<>/&]+") then
-      if not html then
-        html = read_file(file)
-      end
-      --example string: <a href="/pk/Person/5586782/-1432906874" class="">Joseph Sadula Abdula</a>
-      for person_url in string.gmatch(html, '<a href="(/[^/]+/Person/[^/]/[^/"& ]+)" class="">[^<>/]+</a>') do
-        --------------Multiple links possible as results probably - chfoo - help?-------------------
-        table.insert(urls, { url=mundia_url..person_url })
-      end
-      --example string: <a class="tree" href="/pk/Tree/Family/5586782/-1432906874"><span class="view-tree">Stamboom tonen</span></a>
-      for tree_url in string.gmatch(html, '<a class="[^"/<>]+" href="(/[^/]+/Tree/Family/[^/]/[^<>/]+)"><span class="view%-tree">[^<>/]+</span></a>') do
-        --------------Multiple links possible as results probably - chfoo - help?-------------------
-        table.insert(urls, { url=mundia_url..tree_url })
-      end
-      --example string: <img src="http://mediasvc.ancestry.com/v2/image/namespaces/1093/media/11f96e77-c39c-4ca4-b659-32f67aa8d129.jpg?client=TreeService&MaxSide=96" width="68" alt="Foto" /></a>
-      for person_image in string.gmatch(html, '<img src="(http://mediasvc%.ancestry%.com/v[^/]+/image/namespaces/[^/]+/media/[^/%.]+%.jpg%?client=TreeService&MaxSide=[^"]+)" width="[^"]+" alt="[^"]+"[^/]+/></a>') do
-        --------------Multiple links possible as results probably - chfoo - help?-------------------
-        table.insert(urls, { url=person_image })
-        for person_image_big in string.gmatch(person_image, "(http://mediasvc%.ancestry%.com/v[^/]+/image/namespaces/[^/]+/media/[^/%.]+%.jpg%?client=TreeService)&MaxSide=[.]+") do
-          table.insert(urls, { url=person_image_big })
-        end
-      end
-    end
-    --example url: http://www.mundia.com/us/Person/743375/6809259973
-    --example url: http://www.mundia.com/us/Person/12748608/-190814136
-    if string.match(url, "%.mundia%.com/[^/]+/Person/[^/]+/[^<>/&]+") then
-      if not html then
-        html = read_file(file)
-      end
-      --example string: href="/pk/Messages?sendMessageTo=0120cac9-0003-0000-0000-000000000000&subject=Joseph%2BSadula%2BAbdula"
-      for adding_user in string.gmatch(html, 'href="(/[^/]+/Messages%?sendMessageTo=[^&]+&subject=[^"]+)"') do
-      end
-    end
+--    --example url: http://www.mundia.com/pk/Search/Results?surname=ABDULA&birthPlace=Verenigde%20Staten
+--    if string.match(url, "%.mundia%.com/[^/]+/Search/Results%?surname=[^/&]+&birthPlace=[^<>/&]+") then
+--      if not html then
+--        html = read_file(file)
+--      end
+--      --example string: <a href="/pk/Person/5586782/-1432906874" class="">Joseph Sadula Abdula</a>
+--      for person_url in string.gmatch(html, '<a href="(/[^/]+/Person/[^/]/[^/"& ]+)" class="">[^<>/]+</a>') do
+--        --------------Multiple links possible as results probably - chfoo - help?-------------------
+--        table.insert(urls, { url=mundia_url..person_url })
+--      end
+--      --example string: <a class="tree" href="/pk/Tree/Family/5586782/-1432906874"><span class="view-tree">Stamboom tonen</span></a>
+--      for tree_url in string.gmatch(html, '<a class="[^"/<>]+" href="(/[^/]+/Tree/Family/[^/]/[^<>/]+)"><span class="view%-tree">[^<>/]+</span></a>') do
+--        --------------Multiple links possible as results probably - chfoo - help?-------------------
+--        table.insert(urls, { url=mundia_url..tree_url })
+--      end
+--      --example string: <img src="http://mediasvc.ancestry.com/v2/image/namespaces/1093/media/11f96e77-c39c-4ca4-b659-32f67aa8d129.jpg?client=TreeService&MaxSide=96" width="68" alt="Foto" /></a>
+--      for person_image in string.gmatch(html, '<img src="(http://mediasvc%.ancestry%.com/v[^/]+/image/namespaces/[^/]+/media/[^/%.]+%.jpg%?client=TreeService&MaxSide=[^"]+)" width="[^"]+" alt="[^"]+"[^/]+/></a>') do
+--        --------------Multiple links possible as results probably - chfoo - help?-------------------
+--        table.insert(urls, { url=person_image })
+--        for person_image_big in string.gmatch(person_image, "(http://mediasvc%.ancestry%.com/v[^/]+/image/namespaces/[^/]+/media/[^/%.]+%.jpg%?client=TreeService)&MaxSide=[.]+") do
+--          table.insert(urls, { url=person_image_big })
+--        end
+--      end
+--    end
+--    --example url: http://www.mundia.com/us/Person/743375/6809259973
+--    --example url: http://www.mundia.com/us/Person/12748608/-190814136
+--    if string.match(url, "%.mundia%.com/[^/]+/Person/[^/]+/[^<>/&]+") then
+--      if not html then
+--        html = read_file(file)
+--      end
+--      --example string: href="/pk/Messages?sendMessageTo=0120cac9-0003-0000-0000-000000000000&subject=Joseph%2BSadula%2BAbdula"
+--      for adding_user in string.gmatch(html, 'href="(/[^/]+/Messages%?sendMessageTo=[^&]+&subject=[^"]+)"') do
+--      end
+--    end
   elseif item_type == "genealogy" then
     if string.match(url, "http[s]?://[^%.]+%.genealogy%.com/users/") then
       local genealogybase = string.match(url, "(http[s]?://[^%.]+%.genealogy%.com/)users/")
