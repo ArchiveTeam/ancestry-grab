@@ -71,7 +71,6 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     else
       return verdict
     end
-  elseif item_type == "mundiasurnames" then
   elseif item_type == "genforum" then
     return verdict
   else
@@ -129,7 +128,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return false
     end
   elseif item_type == "mundiasurnames" then
-    if string.match(url, "mundia%.com/[^/]+/surnames/][a-z0-9A-Z]+") then
+    if string.match(url, "mundia%.com/[^/]+/surnames/[a-z0-9A-Z]+") then
       return verdict
     elseif string.match(url, "mundia%.com/[^/]+/Search/Results%?surname=[^&]+&birthPlace=") then
       return verdict
@@ -142,7 +141,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     elseif html == 0 then
       return true
     else
-      return false
+      return verdict
     end
   elseif item_type == "genforum" then
     if string.match(url, "genforum%.genealogy%.com/([^/]+)/") and
