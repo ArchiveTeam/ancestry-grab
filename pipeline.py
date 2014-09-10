@@ -171,7 +171,6 @@ class WgetArgs(object):
             "--output-document", ItemInterpolation("%(item_dir)s/wget.tmp"),
             "--truncate-output",
             "-e", "robots=off",
-            "--no-cookies",
             "--rotate-dns",
 #            "--recursive", "--level=inf",
             "--no-parent",
@@ -227,6 +226,7 @@ class WgetArgs(object):
                 wget_args.append('http://www.genealogy.com/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.extend(["--recursive", "--level=inf"])
                 wget_args.extend(["--domains", "www.genealogy.com"])
+                wget_args.extend(["--no-cookies"])
             else:
                 raise Exception('Unknown item')
         elif item_type == "familytreemaker":
@@ -249,6 +249,7 @@ class WgetArgs(object):
                 wget_args.append('http://familytreemaker.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.extend(["--recursive", "--level=inf"])
                 wget_args.extend(["--domains", "familytreemaker.genealogy.com"])
+                wget_args.extend(["--no-cookies"])
             else:
                 raise Exception('Unknown item')
         elif item_type == "familyorigins":
@@ -271,6 +272,7 @@ class WgetArgs(object):
                 wget_args.append('http://www.familyorigins.com/genealogy/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.extend(["--recursive", "--level=inf"])
                 wget_args.extend(["--domains", "familyorigins.com"])
+                wget_args.extend(["--no-cookies"])
             else:
                 raise Exception('Unknown item')
         elif item_type == "genforum":
@@ -278,6 +280,7 @@ class WgetArgs(object):
             wget_args.append('http://genforum.com/{0}/'.format(item_value))
             wget_args.extend(["--recursive", "--level=inf"])
             wget_args.extend(["--domains", "genforum.genealogy.com,genforum.com"])
+            wget_args.extend(["--no-cookies"])
         else:
             raise Exception('Unknown item')
         
