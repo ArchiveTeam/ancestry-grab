@@ -72,7 +72,6 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return verdict
     end
   elseif item_type == "mundiasurnames" then
-    return verdict
   elseif item_type == "genforum" then
     return verdict
   else
