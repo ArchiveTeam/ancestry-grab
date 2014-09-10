@@ -180,7 +180,6 @@ class WgetArgs(object):
             "--tries", "inf",
             "--span-hosts",
             "--waitretry", "30",
-            "--domains", "mundia.com,genealogy.com,familyorigins.com,genforum.com",
             "--warc-file", ItemInterpolation("%(item_dir)s/%(warc_file_base)s"),
             "--warc-header", "operator: Archive Team",
             "--warc-header", "ancestry-dld-script-version: " + VERSION,
@@ -207,6 +206,7 @@ class WgetArgs(object):
             item['item_lang'] = item_lang
             item['item_surname'] = item_surname
             wget_args.append('http://www.mundia.com/{0}/surnames/{1}'.format(item_lang, item_surname))
+            wget_args.extend(["--domains", "mundia.com"])
         elif item_type == "genealogy":
             if "users" in item_value:
                 assert ':' in item_name
@@ -226,6 +226,7 @@ class WgetArgs(object):
                 wget_args.append('http://www.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.append('http://www.genealogy.com/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.extend(["--recursive", "--level=inf"])
+                wget_args.extend(["--domains", "www.genealogy.com"])
             else:
                 raise Exception('Unknown item')
         elif item_type == "familytreemaker":
@@ -247,6 +248,7 @@ class WgetArgs(object):
                 wget_args.append('http://familytreemaker.genealogy.com/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.append('http://familytreemaker.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.extend(["--recursive", "--level=inf"])
+                wget_args.extend(["--domains", "familytreemaker.genealogy.com"])
             else:
                 raise Exception('Unknown item')
         elif item_type == "familyorigins":
@@ -268,12 +270,14 @@ class WgetArgs(object):
                 wget_args.append('http://www.familyorigins.com/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.append('http://www.familyorigins.com/genealogy/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
                 wget_args.extend(["--recursive", "--level=inf"])
+                wget_args.extend(["--domains", "familyorigins.com"])
             else:
                 raise Exception('Unknown item')
         elif item_type == "genforum":
             wget_args.append('http://genforum.genealogy.com/{0}/'.format(item_value))
             wget_args.append('http://genforum.com/{0}/'.format(item_value))
             wget_args.extend(["--recursive", "--level=inf"])
+            wget_args.extend(["--domains", "genforum.genealogy.com,genforum.com"])
         else:
             raise Exception('Unknown item')
         
