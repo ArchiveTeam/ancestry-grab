@@ -206,6 +206,7 @@ class WgetArgs(object):
             item['item_surname'] = item_surname
             wget_args.append('http://www.mundia.com/{0}/surnames/{1}'.format(item_lang, item_surname))
             wget_args.extend(["--domains", "mundia.com"])
+            wget_args.extend(["--recursive", "--level=inf"])
             wget_args.extend(["--load-cookies", "cookies.txt"])
         elif item_type == "genealogy":
             if "users" in item_value:
