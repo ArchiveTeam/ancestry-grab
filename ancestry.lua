@@ -127,15 +127,15 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     end
   elseif item_type == "mundiasurnames" then
     if string.match(url, "mundia%.com/[^/]+/surnames/[a-z0-9A-Z]+") then
-      return verdict
+      return true
     elseif string.match(url, "mundia%.com/[^/]+/Search/Results%?surname=[^&]+&birthPlace=") then
-      return verdict
+      return true
     elseif string.match(url, "mundia%.com/[^/]+/Person/[%-]?[0-9]+/[%-]?[0-9]+") then
-      return verdict
+      return true
     elseif string.match(url, "mundia%.com/[^/]+/Tree/Family/[%-]?[0-9]+/[%-]?[0-9]+") then
-      return verdict
+      return true
     elseif string.match(url, "mundia%.com/[^/]+/Messages%?sendMessageTo=[^&]+&subject=") then
-      return verdict
+      return true
     elseif html == 0 then
       return true
     else
