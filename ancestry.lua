@@ -139,7 +139,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     elseif html == 0 then
       return true
     else
-      return verdict
+      return false
     end
   elseif item_type == "genforum" then
     if string.match(url, "genforum%.genealogy%.com/([^/]+)/") and
