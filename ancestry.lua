@@ -136,10 +136,10 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return true
     elseif string.match(url, "mundia%.com/[^/]+/Messages%?sendMessageTo=[^&]+&subject=") then
       return true
-    elseif string.match(url, "/media/") then
-      return true
-    elseif string.match(url, ".jpg") or string.match(url, ".png") or string.match(url, ".gif") then
-      return true
+--    elseif string.match(url, "/media/") then
+--      return true
+--    elseif string.match(url, ".jpg") or string.match(url, ".png") or string.match(url, ".gif") then
+--      return true
     elseif html == 0 then
       return true
     else
