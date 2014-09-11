@@ -373,7 +373,16 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       local genealogyurl = genealogybase..genealogyrest
       table.insert(urls, { url=genealogyurl })
     end
-    
+  elseif item_type == "genforum" then
+    if string.match(url, "http[s]?://genforum%.genealogy%.com/[^/]+/") then
+      local genealogyrest = string.match(url, "http[s]?://genforum%.genealogy%.com/([^/]+/.+)")
+      local genealogyurl = "http://genforum.com/"..genealogyrest
+      table.insert(urls, { url=genealogyurl })
+    elseif string.match(url, "http[s]?://genforum%.com/[^/]+/") then
+      local genealogyrest = string.match(url, "http[s]?://genforum%.com/([^/]+/.+)")
+      local genealogyurl = "http://genforum.genealogy.com/"..genealogyrest
+      table.insert(urls, { url=genealogyurl })
+    end
   
   end
   
