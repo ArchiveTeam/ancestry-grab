@@ -178,7 +178,6 @@ end
 wget.callbacks.get_urls = function(file, url, is_css, iri)
   local urls = {}
   local html = nil
-  local mundia_url = "http://www.mundia.com"
   
   if item_type == "mundiasurnames" then
     --example url: http://www.mundia.com/us/surnames/aleo
