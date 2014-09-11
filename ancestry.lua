@@ -357,12 +357,12 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       table.insert(urls, { url=genealogyurl })
     end
     
-    if string.match(url, "http[s]?://[^/]+/.+") then
-      for genealogybasea in string.gmatch(url, "(http[s]?://[^/]+/)") do
+    if string.match(url, "http[s]?://.+/.+") then
+      for genealogybasea in string.gmatch(url, "(http[s]?://.+/)") do
         table.insert(urls, { url=genealogybasea })
       end
       
-      for genealogybaseb in string.gmatch(url, "(http[s]?://[^/]+)/") do
+      for genealogybaseb in string.gmatch(url, "(http[s]?://.+)/") do
         table.insert(urls, { url=genealogybaseb })
       end
     end
@@ -379,12 +379,12 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       table.insert(urls, { url=genealogyurl })
     end
     
-    if string.match(url, "http[s]?://[^/]+/.+") then
-      for genealogybasea in string.gmatch(url, "(http[s]?://[^/]+/)") do
+    if string.match(url, "http[s]?://.+/.+") then
+      for genealogybasea in string.gmatch(url, "(http[s]?://.+/)") do
         table.insert(urls, { url=genealogybasea })
       end
       
-      for genealogybaseb in string.gmatch(url, "(http[s]?://[^/]+)/") do
+      for genealogybaseb in string.gmatch(url, "(http[s]?://.+)/") do
         table.insert(urls, { url=genealogybaseb })
       end
     end
@@ -401,12 +401,12 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       table.insert(urls, { url=genealogyurl })
     end
     
-    if string.match(url, "http[s]?://[^/]+/.+") then
-      for genealogybasea in string.gmatch(url, "(http[s]?://[^/]+/)") do
+    if string.match(url, "http[s]?://.+/.+") then
+      for genealogybasea in string.gmatch(url, "(http[s]?://.+/)") do
         table.insert(urls, { url=genealogybasea })
       end
       
-      for genealogybaseb in string.gmatch(url, "(http[s]?://[^/]+)/") do
+      for genealogybaseb in string.gmatch(url, "(http[s]?://.+)/") do
         table.insert(urls, { url=genealogybaseb })
       end
     end
@@ -421,12 +421,12 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       table.insert(urls, { url=genealogyurl })
     end
     
-    if string.match(url, "http[s]?://[^/]+/.+") then
-      for genealogybasea in string.gmatch(url, "(http[s]?://[^/]+/)") do
+    if string.match(url, "http[s]?://.+/.+") then
+      for genealogybasea in string.gmatch(url, "(http[s]?://.+/)") do
         table.insert(urls, { url=genealogybasea })
       end
       
-      for genealogybaseb in string.gmatch(url, "(http[s]?://[^/]+)/") do
+      for genealogybaseb in string.gmatch(url, "(http[s]?://.+)/") do
         table.insert(urls, { url=genealogybaseb })
       end
     end
