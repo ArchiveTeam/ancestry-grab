@@ -52,29 +52,19 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return false
     elseif string.match(url, "familytreemaker%.genealogy%.com") then
       return false
-    else
-      return verdict
     end
   elseif item_type == "familytreemaker" then
     if string.match(url, "www%.familyorigins%.com") then
       return false
     elseif string.match(url, "www%.genealogy%.com") then
       return false
-    else
-      return verdict
     end
   elseif item_type == "familyorigins" then
     if string.match(url, "www%.genealogy%.com") then
       return false
     elseif string.match(url, "familytreemaker%.genealogy%.com") then
       return false
-    else
-      return verdict
     end
-  elseif item_type == "genforum" then
-    return verdict
-  else
-    return false
   end
   
   if item_type == "genealogy" or
