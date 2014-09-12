@@ -126,7 +126,19 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return false
     end
   elseif item_type == "mundiasurnames" then
-    if string.match(url, "mundia%.com/[^/]+/surnames/[a-z0-9A-Z]+") then
+    if string.match(url, "c%.muncn%.com") then
+      return true
+    elseif string.match(url, "mediasvc%.ancestry%.com") then
+      return true
+    elseif string.match(url, "ecn%.dev%.virtualearth%.net") then
+      return true
+    elseif string.match(url, "myfamily2%.[0-9]+%.[a-z0-9]+%.net") then
+      return true
+    elseif string.match(url, "tiles%.virtualearth%.net") then
+      return true
+    elseif string.match(url, "dev%.virtualearth%.net") then
+      return true
+    elseif string.match(url, "mundia%.com/[^/]+/surnames/[a-z0-9A-Z]+") then
       return true
     elseif string.match(url, "mundia%.com/[^/]+/Search/Results%?surname=[^&]+&birthPlace=") then
       return true
@@ -136,10 +148,10 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return true
     elseif string.match(url, "mundia%.com/[^/]+/Messages%?sendMessageTo=[^&]+&subject=") then
       return true
---    elseif string.match(url, "/media/") then
---      return true
---    elseif string.match(url, ".jpg") or string.match(url, ".png") or string.match(url, ".gif") then
---      return true
+    elseif string.match(url, "/media/") then
+      return true
+    elseif string.match(url, ".jpg") or string.match(url, ".png") or string.match(url, ".gif") then
+      return true
     elseif html == 0 then
       return true
     else
