@@ -45,7 +45,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   
   if downloaded[url] == true then
     return false
-  else
+  end
   
   if item_type == "genealogy" then
     if string.match(url, "www%.familyorigins%.com") then
@@ -195,7 +195,6 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     end
   else
     return false
-  end
   end
 end
 
