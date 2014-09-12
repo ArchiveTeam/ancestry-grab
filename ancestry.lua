@@ -83,7 +83,9 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     local url_second = os.getenv('url_second')
     local url_third = os.getenv('url_third')
     local url_name = os.getenv('url_name')
-    if (string.match(url, "%.genealogy%.com/genealogy/") or string.match(url, "%.familyorigins%.com/genealogy/")) and
+    if string.match(url, "chat%.genealogy%.com") then
+      return false
+    elseif (string.match(url, "%.genealogy%.com/genealogy/") or string.match(url, "%.familyorigins%.com/genealogy/")) and
       html == 1 then
       --example url: http://www.genealogy.com/genealogy/users/s/c/h/Aaron-D-Scholl/
       local url_kind_url = string.match(url, "[a-z]+%.[a-z]+%.com/genealogy/([^/]+)/[^/]+/[^/]+/[^/]+/[^/]+/")
