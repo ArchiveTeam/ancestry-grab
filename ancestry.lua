@@ -478,7 +478,7 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
   io.stdout:write(url_count .. "=" .. status_code .. " " .. url["url"] .. ".  \n")
   io.stdout:flush()
   
-  if status_code >= 200 and status_code <= 399 then
+  if (status_code >= 200 and status_code <= 399) or status_code == 403 then
     downloaded[url.url] = true
   end
   
