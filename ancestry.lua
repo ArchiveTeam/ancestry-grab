@@ -47,6 +47,12 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     return false
   end
   
+  if string.match(url, "chat%.genealogy%.com") then
+    return false
+  elseif string.match(url, "chat01%.genealogy%.com") then
+    return false
+  end
+  
   if item_type == "genealogy" then
     if string.match(url, "www%.familyorigins%.com") then
       return false
@@ -84,6 +90,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     local url_third = os.getenv('url_third')
     local url_name = os.getenv('url_name')
     if string.match(url, "chat%.genealogy%.com") then
+      return false
+    elseif string.match(url, "chat01%.genealogy%.com") then
       return false
     elseif (string.match(url, "%.genealogy%.com/genealogy/") or string.match(url, "%.familyorigins%.com/genealogy/")) and
       html == 1 then
