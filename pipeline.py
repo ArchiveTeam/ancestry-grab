@@ -277,10 +277,6 @@ class WgetArgs(object):
         elif item_type == "myfamily":
             for num in range(0, 10000):
                 wget_args.append('http://www.myfamily.com/user/{0}{1}'.format(item_value, num.zfill(4)))
-        elif item_type == "genealogysite":
-            wget_args.append('http://www.familyorigins.com/')
-            wget_args.append('http://www.genealogy.com/')
-            wget_args.append('http://familytreemaker.genealogy.com/')
         else:
             raise Exception('Unknown item')
         
