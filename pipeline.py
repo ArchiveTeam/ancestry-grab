@@ -274,9 +274,6 @@ class WgetArgs(object):
             wget_args.append('http://genforum.genealogy.com/{0}/'.format(item_value))
             wget_args.append('http://genforum.com/{0}/'.format(item_value))
             wget_args.extend(["--no-cookies"])
-        elif item_type == "myfamily":
-            for num in range(0, 10000):
-                wget_args.append('http://www.myfamily.com/user/{0}{1}'.format(item_value, num.zfill(4)))
         else:
             raise Exception('Unknown item')
         
