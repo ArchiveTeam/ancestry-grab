@@ -196,7 +196,7 @@ class WgetArgs(object):
         item['item_type'] = item_type
         item['item_value'] = item_value
         
-        assert item_type in ("mundiasurnames", "genealogy", "familytreemaker", "familyorigins", "genforum", "myfamily")
+        assert item_type in ("mundiasurnames", "genealogy", "familytreemaker", "familyorigins", "genforum")
         
         if item_type == 'mundiasurnames':
             assert ':' in item_value
