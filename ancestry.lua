@@ -494,11 +494,13 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       local genealogyrest = string.match(url, "http[s]?://[^/]/genealogy/(users/.+)")
       local genealogyurl = genealogybase..genealogyrest
       table.insert(urls, { url=genealogyurl })
+    end
     if string.match(url, "http[s]?://[^/]/users/.+") then
       local genealogybase = string.match(url, "(http[s]?://[^/]/)users/.+")
       local genealogyrest = string.match(url, "http[s]?://[^/]/(users/.+)")
       local genealogyurl = genealogybase.."genealogy/"..genealogyrest
       table.insert(urls, { url=genealogyurl })
+    end
   end
   
   return urls
