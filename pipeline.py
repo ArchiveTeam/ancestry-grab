@@ -275,9 +275,8 @@ class WgetArgs(object):
             wget_args.append('http://genforum.com/{0}/'.format(item_value))
             wget_args.extend(["--no-cookies"])
         elif item_type == "myfamily":
-            for num in range(item_value, 10000):
-                wget_args.append('http://www.myfamily.com/user/{0}{1}'.format(item_value, num))
-                wget_args.append('http://www.myfamily.com/blog/{0}{1}'.format(item_value, num))
+            wget_args.append('http://www.myfamily.com/user/{0}7446'.format(item_value))
+            wget_args.append('http://www.myfamily.com/blog/{0}7446'.format(item_value))
             wget_args.extend(["--no-cookies"])
         elif item_type == "genealogysite":
             wget_args.append('http://www.familyorigins.com/')
