@@ -281,9 +281,65 @@ class WgetArgs(object):
             suffixes = string.digits
             
             for args in [('http://www.myfamily.com/user/{0}0{1}'.format(item_value, s), \
-                          'http://www.myfamily.com/user/{0}1{1}'.format(item_value, s) for s in suffixes]:
+                          'http://www.myfamily.com/user/{0}1{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/user/{0}2{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/user/{0}3{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/user/{0}4{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/user/{0}5{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/user/{0}6{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/user/{0}7{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/user/{0}8{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/user/{0}9{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}0{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}1{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}2{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}3{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}4{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}5{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}6{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}7{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}8{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}9{1}'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}0{1}?start=0'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}1{1}?start=0'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}2{1}?start=0'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}3{1}?start=0'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}4{1}?start=0'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}5{1}?start=0'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}6{1}?start=0'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}7{1}?start=0'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}8{1}?start=0'.format(item_value, s), \
+                          'http://www.myfamily.com/blog/{0}9{1}?start=0'.format(item_value, s) for s in suffixes]:
                 wget_args.append(args[0])
                 wget_args.append(args[1])
+                wget_args.append(args[2])
+                wget_args.append(args[3])
+                wget_args.append(args[4])
+                wget_args.append(args[5])
+                wget_args.append(args[6])
+                wget_args.append(args[7])
+                wget_args.append(args[8])
+                wget_args.append(args[9])
+                wget_args.append(args[10])
+                wget_args.append(args[11])
+                wget_args.append(args[12])
+                wget_args.append(args[13])
+                wget_args.append(args[14])
+                wget_args.append(args[15])
+                wget_args.append(args[16])
+                wget_args.append(args[17])
+                wget_args.append(args[18])
+                wget_args.append(args[19])
+                wget_args.append(args[20])
+                wget_args.append(args[21])
+                wget_args.append(args[22])
+                wget_args.append(args[23])
+                wget_args.append(args[24])
+                wget_args.append(args[25])
+                wget_args.append(args[26])
+                wget_args.append(args[27])
+                wget_args.append(args[28])
+                wget_args.append(args[29])
                 
         elif item_type == "genealogysite":
             wget_args.append('http://www.familyorigins.com/')
