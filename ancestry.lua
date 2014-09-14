@@ -222,6 +222,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       or string.match(url, "/Scripts/")
       or string.match(url, "/Features/")
       or string.match(url, "/Images/")
+      or string.match(url, "share%?s=")
       or string.match(url, "/images/")
       or string.match(url, "media%.myfamily%.com")
       or string.match(url, "myfamily[0-9]%.[0-9]+%.[0-9a-z]+%.net")
