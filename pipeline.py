@@ -177,7 +177,7 @@ class WgetArgs(object):
             "--page-requisites",
             "--timeout", "30",
             "--tries", "inf",
-            "--domains", "mundia.com,muncn.com,genealogy.com,familyorigins.com,genforum.com",
+            "--domains", "mundia.com,muncn.com,genealogy.com,familyorigins.com,genforum.com,myfamily.com",
             "--span-hosts",
             "--waitretry", "30",
             "--warc-file", ItemInterpolation("%(item_dir)s/%(warc_file_base)s"),
@@ -275,12 +275,12 @@ class WgetArgs(object):
             wget_args.append('http://genforum.com/{0}/'.format(item_value))
             wget_args.extend(["--no-cookies"])
         elif item_type == "myfamily":
-            for num in range(0, 10000):
-                wget_args.append('http://www.myfamily.com/user/{0}{1}'.format(item_value, num.zfill(4)))
+            wget_args.append('http://www.myfamily.com/user/{0}'.format(item_value))
         elif item_type == "genealogysite":
             wget_args.append('http://www.familyorigins.com/')
             wget_args.append('http://www.genealogy.com/')
             wget_args.append('http://familytreemaker.genealogy.com/')
+            wget_args.extend(["--no-cookies"])
         else:
             raise Exception('Unknown item')
         
