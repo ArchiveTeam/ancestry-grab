@@ -196,7 +196,7 @@ class WgetArgs(object):
         item['item_type'] = item_type
         item['item_value'] = item_value
         
-        assert item_type in ("mundiasurnames", "genealogy", "familytreemaker", "familyorigins", "genforum")
+        assert item_type in ("mundiasurnames", "genealogy", "familytreemaker", "familyorigins", "genforum", "myfamily", "genealogysite")
         
         if item_type == 'mundiasurnames':
             assert ':' in item_value
@@ -274,6 +274,13 @@ class WgetArgs(object):
             wget_args.append('http://genforum.genealogy.com/{0}/'.format(item_value))
             wget_args.append('http://genforum.com/{0}/'.format(item_value))
             wget_args.extend(["--no-cookies"])
+        elif item_type == "myfamily":
+            for num in range(0, 10000):
+                wget_args.append('http://www.myfamily.com/user/{0}{1}'.format(item_value, num.zfill(4)))
+        elif item_type == "genealogysite":
+            wget_args.append('http://www.familyorigins.com/')
+            wget_args.append('http://www.genealogy.com/')
+            wget_args.append('http://familytreemaker.genealogy.com/')
         else:
             raise Exception('Unknown item')
         

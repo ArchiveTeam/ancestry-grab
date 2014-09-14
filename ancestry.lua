@@ -213,6 +213,28 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     else
       return false
     end
+  elseif item_type == 'myfamily' then
+    if html == 0 then
+      return verdict
+    elseif string.match(url, item_type) then
+      return true
+    elseif string.match(url, "/Styles/")
+      or string.match(url, "/Scripts/")
+      or string.match(url, "/Features/")
+      or string.match(url, "/Images/")
+      or string.match(url, "/images/")
+      or string.match(url, "media%.myfamily%.com")
+      or string.match(url, "myfamily[0-9]%.[0-9]+%.[0-9a-z]+%.net")
+      or string.match(url, "/group/") then
+      return true
+    else
+      return false
+    end
+  elseif item_type == 'genealogysite' then
+    if string.match(url, "/users/[^/]+/[^/]+/[^/]+/[^/]+/")
+      or string.match(url, "/genealogy/users/[^/]+/[^/]+/[^/]+/[^/]+/") then
+      return false
+    end
   else
     return false
   end
@@ -466,7 +488,19 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         table.insert(urls, { url=genealogybaseb })
       end
     end
-  
+  elseif item_type == 'genealogysite' then
+    if string.match(url, "http[s]?://[^/]/genealogy/users/.+") then
+      local genealogybase = string.match(url, "(http[s]?://[^/]/)genealogy/users/.+")
+      local genealogyrest = string.match(url, "http[s]?://[^/]/genealogy/(users/.+)")
+      local genealogyurl = genealogybase..genealogyrest
+      table.insert(urls, { url=genealogyurl })
+    end
+    if string.match(url, "http[s]?://[^/]/users/.+") then
+      local genealogybase = string.match(url, "(http[s]?://[^/]/)users/.+")
+      local genealogyrest = string.match(url, "http[s]?://[^/]/(users/.+)")
+      local genealogyurl = genealogybase.."genealogy/"..genealogyrest
+      table.insert(urls, { url=genealogyurl })
+    end
   end
   
   return urls
