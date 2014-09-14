@@ -553,9 +553,10 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           table.insert(urls, { url="http://www.myfamily.com"..followsurl })
         end
       end
-      for base,page in string.gmatch(url, "(http://[^]+/blog/[0-9]+%?start=)([0-9]+)") do
+      for page in string.gmatch(url, "http://[^]+/blog/[0-9]+%?start=([0-9]+)") do
         if string.match(html, "editUrl:") then
           local nextpage = page + 1
+          local base = string.match(url, "(http://[^]+/blog/[0-9]+%?start=)[0-9]+")
           table.insert(urls, { url=base..nextpage })
         end
       end
