@@ -380,8 +380,7 @@ pipeline = Pipeline(
     PrepareDirectories(warc_prefix="ancestry"),
     WgetDownload(
         WgetArgs(),
-        max_tries=10,
-#        max_tries=2,
+        max_tries=2,
         accept_on_exit_code=[0, 8],
         env={
             "item_dir": ItemValue("item_dir"),
