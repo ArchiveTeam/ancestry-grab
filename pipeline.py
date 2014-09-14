@@ -309,7 +309,7 @@ class WgetArgs(object):
                           'http://www.myfamily.com/blog/{0}6{1}?start=0'.format(item_value, s), \
                           'http://www.myfamily.com/blog/{0}7{1}?start=0'.format(item_value, s), \
                           'http://www.myfamily.com/blog/{0}8{1}?start=0'.format(item_value, s), \
-                          'http://www.myfamily.com/blog/{0}9{1}?start=0'.format(item_value, s) for s in suffixes]:
+                          'http://www.myfamily.com/blog/{0}9{1}?start=0'.format(item_value, s)) for s in suffixes]:
                 wget_args.append(args[0])
                 wget_args.append(args[1])
                 wget_args.append(args[2])
