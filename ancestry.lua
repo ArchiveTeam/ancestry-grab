@@ -218,6 +218,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return verdict
     elseif string.match(url, "/Styles/")
       or string.match(url, "/Scripts/")
+      or string.match(url, "/Flash/")
       or string.match(url, "/Features/")
       or string.match(url, "/Images/")
       or string.match(url, "share%?s=")
