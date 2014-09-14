@@ -500,6 +500,40 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       local genealogyurl = genealogybase.."genealogy/"..genealogyrest
       table.insert(urls, { url=genealogyurl })
     end
+  elseif item_type == 'myfamily' then
+    if string.match(url, "/blog/") then
+      html = read_file(file)
+      for signinurl in string.gmatch(html, 'SignInUrl:"([^"]+)"') do
+        table.insert(urls, { url=signinurl })
+      end
+      for signupurl in string.gmatch(html, 'SignUpUrl:"([^"]+)"') do
+        table.insert(urls, { url=signupurl })
+      end
+      for avatarurl in string.gmatch(html, 'avatarUrl:"([^"]+)"') do
+        table.insert(urls, { url=avatarurl })
+      end
+      for searchurl in string.gmatch(html, 'searchUrl:"([^"]+)"') do
+        table.insert(urls, { url="http://www.myfamily.com"..searchurl })
+      end
+      for editurl in string.gmatch(html, 'editUrl:"([^"]+)"') do
+        table.insert(urls, { url="http://www.myfamily.com"..editurl })
+      end
+      for uurl in string.gmatch(html, 'url:"([^"]+)"') do
+        table.insert(urls, { url="http://www.myfamily.com"..uurl })
+      end
+      for imageurl in string.gmatch(html, 'imageUrl:"([^"]+)"') do
+        table.insert(urls, { url=imageurl })
+      end
+      for videourl in string.gmatch(html, 'videoUrl:"([^"]+)"') do
+        table.insert(urls, { url=videourl })
+      end
+      for feedurl in string.gmatch(html, 'feedUrl:"([^"]+)') do
+        table.insert(urls, { url=feedurl })
+      end
+      for followsurl in string.gmatch(html, 'followsUrl:"([^"]+)"') do
+        table.insert(urls, { url="http://www.myfamily.com"..followsurl })
+      end
+    end
   end
   
   return urls
