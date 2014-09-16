@@ -214,7 +214,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return false
     end
   elseif item_type == 'myfamily' then
-    if string.match(url, item_type) then
+    if string.match(url, item_value) then
       return verdict
     elseif string.match(url, "/Styles/")
       or string.match(url, "/Scripts/")
