@@ -12,6 +12,11 @@ local url_count = 0
 local tries = 0
 local item_type = os.getenv('item_type')
 local item_value = os.getenv('item_value')
+local url_kind = os.getenv('url_kind')
+local url_first = os.getenv('url_first')
+local url_second = os.getenv('url_second')
+local url_third = os.getenv('url_third')
+local url_name = os.getenv('url_name')
 
 local downloaded = {}
 
@@ -94,11 +99,6 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   if item_type == "genealogy" or
     item_type == "familytreemaker" or
     item_type == "familyorigins" then
-    local url_kind = os.getenv('url_kind')
-    local url_first = os.getenv('url_first')
-    local url_second = os.getenv('url_second')
-    local url_third = os.getenv('url_third')
-    local url_name = os.getenv('url_name')
     if string.match(url, "chat%.genealogy%.com") then
       return false
     elseif string.match(url, "chat01%.genealogy%.com") then
@@ -573,7 +573,6 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
   -- NEW for 2014: Slightly more verbose messages because people keep
   -- complaining that it's not moving or not working
   local status_code = http_stat["statcode"]
-  local url_name = os.getenv('url_name')
   
   url_count = url_count + 1
   io.stdout:write(url_count .. "=" .. status_code .. " " .. url["url"] .. ".  \n")
@@ -584,7 +583,7 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
   end
   
   if status_code >= 500 or
-    (status_code == 403 and string.match(url["url"], url_name) or
+    (status_code == 403 and string.match(url["url"], url_name)) or
     (status_code >= 400 and status_code ~= 404 and status_code ~= 403) then
     io.stdout:write("\nServer returned "..http_stat.statcode..". Sleeping.\n")
     io.stdout:flush()
