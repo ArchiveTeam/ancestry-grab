@@ -573,7 +573,6 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
   -- NEW for 2014: Slightly more verbose messages because people keep
   -- complaining that it's not moving or not working
   local status_code = http_stat["statcode"]
-  local urlname = url_name
   
   url_count = url_count + 1
   io.stdout:write(url_count .. "=" .. status_code .. " " .. url["url"] .. ".  \n")
@@ -584,7 +583,7 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
   end
   
   if status_code >= 500 or
-    (status_code == 403 and string.match(url["url"], urlname)) or
+    (status_code == 403 and string.match(url["url"], url_name)) or
     (status_code >= 400 and status_code ~= 404 and status_code ~= 403) then
     io.stdout:write("\nServer returned "..http_stat.statcode..". Sleeping.\n")
     io.stdout:flush()
