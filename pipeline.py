@@ -386,6 +386,11 @@ pipeline = Pipeline(
             "item_dir": ItemValue("item_dir"),
             "item_value": ItemValue("item_value"),
             "item_type": ItemValue("item_type"),
+            "url_name": ItemValue("url_name"),
+            "url_kind": ItemValue("url_kind"),
+            "url_first": ItemValue("url_first"),
+            "url_second": ItemValue("url_second"),
+            "url_third": ItemValue("url_third"),
         }
     ),
     PrepareStatsForTracker(
