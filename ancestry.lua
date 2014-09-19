@@ -62,7 +62,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     if not string.match(url, "%.familyorigins%.com") then
       if string.match(parenturl, "%.genealogy%.com") then
         return verdict
-      if string.match(parenturl, "%.familyorigins%.com") then
+      elseif string.match(parenturl, "%.familyorigins%.com") then
         return verdict
       else
         return false
