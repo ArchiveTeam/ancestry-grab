@@ -514,58 +514,97 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       table.insert(urls, { url=genealogyurl })
     end
   elseif item_type == 'myfamily' then
-    if string.match(url, "/blog/") then
+    if string.match(url, item_value) then
       html = read_file(file)
-      for signinurl in string.gmatch(html, 'SignInUrl:"([^"]+)"') do
-        if downloaded[signinurl] ~= true then
-          table.insert(urls, { url=signinurl })
+      for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
+        if string.match(customurl, item_value)
+          or string.match(customurl, "/Styles/")
+          or string.match(customurl, "/Scripts/")
+          or string.match(customurl, "/Flash/")
+          or string.match(customurl, "/Features/")
+          or string.match(customurl, "/Images/")
+          or string.match(customurl, "share%?s=")
+          or string.match(customurl, "/images/")
+          or string.match(customurl, "media%.myfamily%.com")
+          or string.match(customurl, "myfamily[0-9]%.[0-9]+%.[0-9a-z]+%.net")
+          or string.match(customurl, "/group/") then
+          if downloaded[customurl] ~= true then
+            table.insert(urls, { url=customurl })
+          end
         end
       end
-      for signupurl in string.gmatch(html, 'SignUpUrl:"([^"]+)"') do
-        if downloaded[signupurl] ~= true then
-          table.insert(urls, { url=signupurl })
+      for customurlnf in string.gmatch(html, '"(/[^"]+)"') do
+        local baseurl = "http://www.myfamily.com"
+        local customurl = baseurl..customurlnf
+        if string.match(customurl, item_value)
+          or string.match(customurl, "/Styles/")
+          or string.match(customurl, "/Scripts/")
+          or string.match(customurl, "/Flash/")
+          or string.match(customurl, "/Features/")
+          or string.match(customurl, "/Images/")
+          or string.match(customurl, "share%?s=")
+          or string.match(customurl, "/images/")
+          or string.match(customurl, "media%.myfamily%.com")
+          or string.match(customurl, "myfamily[0-9]%.[0-9]+%.[0-9a-z]+%.net")
+          or string.match(customurl, "/group/") then
+          if downloaded[customurl] ~= true then
+            table.insert(urls, { url=customurl })
+          end
         end
       end
-      for avatarurl in string.gmatch(html, 'avatarUrl:"([^"]+)"') do
-        if downloaded[avatarurl] ~= true then
-          table.insert(urls, { url=avatarurl })
-        end
-      end
-      for searchurl in string.gmatch(html, 'searchUrl:"([^"]+)"') do
-        if downloaded["http://www.myfamily.com"..searchurl] ~= true then
-          table.insert(urls, { url="http://www.myfamily.com"..searchurl })
-        end
-      end
-      for editurl in string.gmatch(html, 'editUrl:"([^"]+)"') do
-        if downloaded["http://www.myfamily.com"..editurl] ~= true then
-          table.insert(urls, { url="http://www.myfamily.com"..editurl })
-        end
-      end
-      for uurl in string.gmatch(html, 'url:"([^"]+)"') do
-        if downloaded["http://www.myfamily.com"..uurl] ~= true then
-         table.insert(urls, { url="http://www.myfamily.com"..uurl })
-        end
-      end
-      for imageurl in string.gmatch(html, 'imageUrl:"([^"]+)"') do
-        if downloaded[imageurl] ~= true then
-         table.insert(urls, { url=imageurl })
-        end
-      end
-      for videourl in string.gmatch(html, 'videoUrl:"([^"]+)"') do
-        if downloaded[videourl] ~= true then
-         table.insert(urls, { url=videourl })
-        end
-      end
-      for feedurl in string.gmatch(html, 'feedUrl:"([^"]+)') do
-        if downloaded[feedurl] ~= true then
-          table.insert(urls, { url=feedurl })
-        end
-      end
-      for followsurl in string.gmatch(html, 'followsUrl:"([^"]+)"') do
-        if downloaded["http://www.myfamily.com"..followsurl] ~= true then
-          table.insert(urls, { url="http://www.myfamily.com"..followsurl })
-        end
-      end
+      
+--    if string.match(url, "/blog/") then
+--      html = read_file(file)
+--      for signinurl in string.gmatch(html, 'SignInUrl:"([^"]+)"') do
+--        if downloaded[signinurl] ~= true then
+--          table.insert(urls, { url=signinurl })
+--        end
+--      end
+--      for signupurl in string.gmatch(html, 'SignUpUrl:"([^"]+)"') do
+--        if downloaded[signupurl] ~= true then
+--          table.insert(urls, { url=signupurl })
+--        end
+--      end
+--      for avatarurl in string.gmatch(html, 'avatarUrl:"([^"]+)"') do
+--        if downloaded[avatarurl] ~= true then
+--          table.insert(urls, { url=avatarurl })
+--        end
+--      end
+--      for searchurl in string.gmatch(html, 'searchUrl:"([^"]+)"') do
+--        if downloaded["http://www.myfamily.com"..searchurl] ~= true then
+--          table.insert(urls, { url="http://www.myfamily.com"..searchurl })
+--        end
+--      end
+--      for editurl in string.gmatch(html, 'editUrl:"([^"]+)"') do
+--        if downloaded["http://www.myfamily.com"..editurl] ~= true then
+--          table.insert(urls, { url="http://www.myfamily.com"..editurl })
+--        end
+--      end
+--      for uurl in string.gmatch(html, 'url:"([^"]+)"') do
+--        if downloaded["http://www.myfamily.com"..uurl] ~= true then
+--         table.insert(urls, { url="http://www.myfamily.com"..uurl })
+--        end
+--      end
+--      for imageurl in string.gmatch(html, 'imageUrl:"([^"]+)"') do
+--        if downloaded[imageurl] ~= true then
+--         table.insert(urls, { url=imageurl })
+--        end
+--      end
+--      for videourl in string.gmatch(html, 'videoUrl:"([^"]+)"') do
+--        if downloaded[videourl] ~= true then
+--         table.insert(urls, { url=videourl })-
+--        end
+--      end
+--      for feedurl in string.gmatch(html, 'feedUrl:"([^"]+)') do
+--        if downloaded[feedurl] ~= true then
+--          table.insert(urls, { url=feedurl })
+--        end
+--      end
+--      for followsurl in string.gmatch(html, 'followsUrl:"([^"]+)"') do
+--        if downloaded["http://www.myfamily.com"..followsurl] ~= true then
+--          table.insert(urls, { url="http://www.myfamily.com"..followsurl })
+--        end
+--      end
       if string.match(url, "http[s]?://[^/]+/blog/[0-9]+%?start=[0-9]+") then
         if string.match(html, "editUrl:") then
           local page = string.match(url, "http[s]?://[^/]+/blog/[0-9]+%?start=([0-9]+)")
