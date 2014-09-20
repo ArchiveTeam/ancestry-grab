@@ -341,6 +341,11 @@ class WgetArgs(object):
                 wget_args.append(args[28])
                 wget_args.append(args[29])
                 
+                url_kind = "a"
+                url_first = "b"
+                url_second = "c"
+                url_third = "d"
+                url_name = "e"
                 assert url_kind
                 assert url_first
                 assert url_second
