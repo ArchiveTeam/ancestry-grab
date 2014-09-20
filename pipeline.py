@@ -208,6 +208,22 @@ class WgetArgs(object):
             item['item_surname'] = item_surname
             wget_args.append('http://www.mundia.com/{0}/surnames/{1}'.format(item_lang, item_surname))
             wget_args.extend(["--load-cookies", "cookies.txt"])
+            
+            url_kind = "a"
+            url_first = "b"
+            url_second = "c"
+            url_third = "d"
+            url_name = "e"
+            assert url_kind
+            assert url_first
+            assert url_second
+            assert url_third
+            assert url_name
+            item['url_kind'] = url_kind
+            item['url_first'] = url_first
+            item['url_second'] = url_second
+            item['url_third'] = url_third
+            item['url_name'] = url_name
         elif item_type == "genealogy":
             if "users" in item_value:
                 assert ':' in item_name
