@@ -528,8 +528,10 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           or string.match(customurl, "media%.myfamily%.com")
           or string.match(customurl, "myfamily[0-9]%.[0-9]+%.[0-9a-z]+%.net")
           or string.match(customurl, "/group/") then
-          if downloaded[customurl] ~= true then
-            table.insert(urls, { url=customurl })
+          if not string.match(customurl, "%%2fsignin%%3furl%%3d") then
+            if downloaded[customurl] ~= true then
+              table.insert(urls, { url=customurl })
+            end
           end
         end
       end
@@ -547,8 +549,10 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           or string.match(customurl, "media%.myfamily%.com")
           or string.match(customurl, "myfamily[0-9]%.[0-9]+%.[0-9a-z]+%.net")
           or string.match(customurl, "/group/") then
-          if downloaded[customurl] ~= true then
-            table.insert(urls, { url=customurl })
+          if not string.match(customurl, "%%2fsignin%%3furl%%3d") then
+            if downloaded[customurl] ~= true then
+              table.insert(urls, { url=customurl })
+            end
           end
         end
       end
