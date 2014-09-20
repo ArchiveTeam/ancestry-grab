@@ -341,6 +341,17 @@ class WgetArgs(object):
                 wget_args.append(args[28])
                 wget_args.append(args[29])
                 
+                assert url_kind
+                assert url_first
+                assert url_second
+                assert url_third
+                assert url_name
+                item['url_kind'] = url_kind
+                item['url_first'] = url_first
+                item['url_second'] = url_second
+                item['url_third'] = url_third
+                item['url_name'] = url_name
+                
         elif item_type == "genealogysite":
             wget_args.append('http://www.familyorigins.com/')
             wget_args.append('http://www.genealogy.com/')
