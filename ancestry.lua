@@ -558,6 +558,11 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           end
         end
       end
+      for largeimage in string.gmatch(url, "(http[s]?://[^/]+/[^/]+/[^/]+/image)%?") do
+        if downloaded[largeimage] ~= true then
+          table.insert(urls, { url=largeimage })
+        end
+      end
       
 --    if string.match(url, "/blog/") then
 --      html = read_file(file)
