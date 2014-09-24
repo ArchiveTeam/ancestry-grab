@@ -374,6 +374,16 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       table.insert(urls, { url="http://www.mundia.com/"..country_code.."/Search/Results?surname="..surname_upper.."&birthPlace=Vietnam" })
       table.insert(urls, { url="http://www.mundia.com/"..country_code.."/Search/Results?surname="..surname_upper.."&birthPlace=Yemen" })
     end
+    if string.match(url, "http[s]?://www%.mundia%.com/[a-z][a-z]/.+") then
+      local urlstart = string.match(url, "(http[s]?://)www%.mundia%.com/[a-z][a-z]/.+")
+      local urlmid = string.match(url, "http[s]?://www(%.mundia%.com/)[a-z][a-z]/.+")
+      local urllang = string.match(url, "http[s]?://www%.mundia%.com/([a-z][a-z])/.+")
+      local urlend = string.match(url, "http[s]?://www%.mundia%.com/[a-z][a-z]/(.+)")
+      local urlfull = urlstart..urllang..urlmid..urlend
+      if downloaded[urlfull] ~= true then
+        table.insert(urls, { url=urlfull })
+      end
+    end
     html = read_file(file)
     for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
       if string.match(customurl, item_value)
