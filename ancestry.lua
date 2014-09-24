@@ -397,8 +397,10 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         or string.match(customurl, "/Family/GetFamilyMembers/")
         or string.match(customurl, "/Tree/Family/")
         or string.match(customurl, "/Messages%?sendMessageTo=") then
-        if downloaded[customurl] ~= true then
-          table.insert(urls, { url=customurl })
+        if not string.match(customurl, "amp;amp;") then
+          if downloaded[customurl] ~= true then
+            table.insert(urls, { url=customurl })
+          end
         end
       end
     end
@@ -422,8 +424,10 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         or string.match(customurl, "/Family/GetFamilyMembers/")
         or string.match(customurl, "/Tree/Family/")
         or string.match(customurl, "/Messages%?sendMessageTo=") then
-        if downloaded[customurl] ~= true then
-          table.insert(urls, { url=customurl })
+        if not string.match(customurl, "amp;amp;") then
+          if downloaded[customurl] ~= true then
+            table.insert(urls, { url=customurl })
+          end
         end
       end
     end
