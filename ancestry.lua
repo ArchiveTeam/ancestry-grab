@@ -692,9 +692,9 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
   end
   
   if (status_code ==  500 and string.match(url["url"], "aspxerrorpath=")) then
-    return wget.action.NOTHING
+    return wget.actions.NOTHING
   elseif (status_code == 403 and string.match(url["url"], "%.virtualearth%.net")) then
-    return wget.action.NOTHING
+    return wget.actions.NOTHING
   elseif status_code >= 500 or
     (status_code == 403 and string.match(url["url"], url_name)) or
     (status_code >= 400 and status_code ~= 404 and status_code ~= 403) then
