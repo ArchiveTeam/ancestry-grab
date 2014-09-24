@@ -699,7 +699,9 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
     downloaded[url.url] = true
   end
   
-  if (status_code ==  500 and string.match(url["url"], "aspxerrorpath=")) then
+  if (status_code == 301 and string.match(url["url"], "http[s]?://[a-z][a-z]%.mundia%.com")) then
+    return wget.actions.EXIT
+  elseif (status_code ==  500 and string.match(url["url"], "aspxerrorpath=")) then
     return wget.actions.NOTHING
   elseif (status_code == 403 and string.match(url["url"], "%.virtualearth%.net")) then
     return wget.actions.NOTHING
