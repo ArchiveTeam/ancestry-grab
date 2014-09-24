@@ -373,10 +373,6 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       table.insert(urls, { url="http://www.mundia.com/"..country_code.."/Search/Results?surname="..surname_upper.."&birthPlace=Yemen" })
     end
     html = read_file(file)
-    if string.match(url, "http[s]?://[^%?]+%?client=") then
-      local fullimageurl = string.match(url, "(http[s]?://[^%?]+)%?client=")
-      table.insert(urls, { url=fullimageurl })
-    end
     for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
       if string.match(customurl, item_value)
         or string.match(customurl, "c%.muncn%.com")
