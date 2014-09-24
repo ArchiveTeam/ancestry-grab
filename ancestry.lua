@@ -375,9 +375,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
     html = read_file(file)
     if string.match(url, "http[s]?://[^%?]+%?client=") then
       local fullimageurl = string.match(url, "(http[s]?://[^%?]+)%?client=")
-      if downloaded[fullimageurl] ~= true then
-        table.insert(urls, { url=fullimageurl })
-      end
+      table.insert(urls, { url=fullimageurl })
     end
     for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
       if string.match(customurl, item_value)
