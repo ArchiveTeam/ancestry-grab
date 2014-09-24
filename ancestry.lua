@@ -158,23 +158,24 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return false
     end
   elseif item_type == "mundiasurnames" then
-    if string.match(customurl, item_value)
-      or string.match(customurl, "c%.muncn%.com")
-      or string.match(customurl, "mediasvc%.ancestry%.com")
-      or string.match(customurl, "ecn%.dev%.virtualearth%.net")
-      or string.match(customurl, "myfamily2%.[0-9]+%.[a-z0-9]+%.net")
-      or string.match(customurl, "tiles%.virtualearth%.net")
-      or string.match(customurl, "dev%.virtualearth%.net")
-      or string.match(customurl, "/media/")
-      or string.match(customurl, "/image/")
-      or string.match(customurl, "/images/")
-      or string.match(customurl, "/scripts/")
-      or string.match(customurl, "/style/")
-      or string.match(customurl, "/Search/Results%?surname=")
-      or string.match(customurl, "/Person/")
-      or string.match(customurl, "/Family/GetFamilyMembers/")
-      or string.match(customurl, "/Tree/Family/")
-      or string.match(customurl, "/Messages%?sendMessageTo=") then
+    if string.match(url, "/Messages%?sendMessageTo=")
+      or string.match(url, "/Tree/Family/") then
+      return false
+    elseif string.match(url, item_value)
+      or string.match(url, "c%.muncn%.com")
+      or string.match(url, "mediasvc%.ancestry%.com")
+      or string.match(url, "ecn%.dev%.virtualearth%.net")
+      or string.match(url, "myfamily2%.[0-9]+%.[a-z0-9]+%.net")
+      or string.match(url, "tiles%.virtualearth%.net")
+      or string.match(url, "dev%.virtualearth%.net")
+      or string.match(url, "/media/")
+      or string.match(url, "/image/")
+      or string.match(url, "/images/")
+      or string.match(url, "/scripts/")
+      or string.match(url, "/style/")
+      or string.match(url, "/Search/Results%?surname=")
+      or string.match(url, "/Person/")
+      or string.match(url, "/Family/GetFamilyMembers/") then
       return true
     elseif html == 0 then
       return true
@@ -388,9 +389,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         or string.match(customurl, "/style/")
         or string.match(customurl, "/Search/Results%?surname=")
         or string.match(customurl, "/Person/")
-        or string.match(customurl, "/Family/GetFamilyMembers/")
-        or string.match(customurl, "/Tree/Family/")
-        or string.match(customurl, "/Messages%?sendMessageTo=") then
+        or string.match(customurl, "/Family/GetFamilyMembers/") then
         if not string.match(customurl, "amp;amp;") then
           if downloaded[customurl] ~= true then
             table.insert(urls, { url=customurl })
@@ -415,9 +414,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         or string.match(customurl, "/style/")
         or string.match(customurl, "/Search/Results%?surname=")
         or string.match(customurl, "/Person/")
-        or string.match(customurl, "/Family/GetFamilyMembers/")
-        or string.match(customurl, "/Tree/Family/")
-        or string.match(customurl, "/Messages%?sendMessageTo=") then
+        or string.match(customurl, "/Family/GetFamilyMembers/") then
         if not string.match(customurl, "amp;amp;") then
           if downloaded[customurl] ~= true then
             table.insert(urls, { url=customurl })
