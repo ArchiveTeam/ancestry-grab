@@ -158,31 +158,23 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return false
     end
   elseif item_type == "mundiasurnames" then
-    if string.match(url, "c%.muncn%.com") then
-      return true
-    elseif string.match(url, "mediasvc%.ancestry%.com") then
-      return true
-    elseif string.match(url, "ecn%.dev%.virtualearth%.net") then
-      return true
-    elseif string.match(url, "myfamily2%.[0-9]+%.[a-z0-9]+%.net") then
-      return true
-    elseif string.match(url, "tiles%.virtualearth%.net") then
-      return true
-    elseif string.match(url, "dev%.virtualearth%.net") then
-      return true
-    elseif string.match(url, "mundia%.com/[^/]+/surnames/[a-z0-9A-Z]+") then
-      return true
-    elseif string.match(url, "mundia%.com/[^/]+/Search/Results%?surname=[^&]+&birthPlace=") then
-      return true
-    elseif string.match(url, "mundia%.com/[^/]+/Person/[^/]+/.+") then
-      return true
-    elseif string.match(url, "mundia%.com/[^/]+/Tree/Family/[^/]+/.+") then
-      return true
-    elseif string.match(url, "mundia%.com/[^/]+/Messages%?sendMessageTo=[^&]+&subject=") then
-      return true
-    elseif string.match(url, "/media/") then
-      return true
-    elseif string.match(url, ".jpg") or string.match(url, ".png") or string.match(url, ".gif") then
+    if string.match(customurl, item_value)
+      or string.match(customurl, "c%.muncn%.com")
+      or string.match(customurl, "mediasvc%.ancestry%.com")
+      or string.match(customurl, "ecn%.dev%.virtualearth%.net")
+      or string.match(customurl, "myfamily2%.[0-9]+%.[a-z0-9]+%.net")
+      or string.match(customurl, "tiles%.virtualearth%.net")
+      or string.match(customurl, "dev%.virtualearth%.net")
+      or string.match(customurl, "/media/")
+      or string.match(customurl, "/image/")
+      or string.match(customurl, "/images/")
+      or string.match(customurl, "/scripts/")
+      or string.match(customurl, "/style/")
+      or string.match(customurl, "/Search/Results%?surname=")
+      or string.match(customurl, "/Person/")
+      or string.match(customurl, "/Family/GetFamilyMembers/")
+      or string.match(customurl, "/Tree/Family/")
+      or string.match(customurl, "/Messages%?sendMessageTo=") then
       return true
     elseif html == 0 then
       return true
@@ -379,6 +371,61 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       table.insert(urls, { url="http://www.mundia.com/"..country_code.."/Search/Results?surname="..surname_upper.."&birthPlace=Venezuela" })
       table.insert(urls, { url="http://www.mundia.com/"..country_code.."/Search/Results?surname="..surname_upper.."&birthPlace=Vietnam" })
       table.insert(urls, { url="http://www.mundia.com/"..country_code.."/Search/Results?surname="..surname_upper.."&birthPlace=Yemen" })
+    end
+    html = read_file(file)
+    if string.match(url, "http[s]?://[^%?]+%?client=") then
+      local fullimageurl = string.match(url, "(http[s]?://[^%?]+)%?client=")
+      if downloaded[fullimageurl] ~= true then
+        table.insert(urls, { url=fullimageurl })
+      end
+    end
+    for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
+      if string.match(customurl, item_value)
+        or string.match(customurl, "c%.muncn%.com")
+        or string.match(customurl, "mediasvc%.ancestry%.com")
+        or string.match(customurl, "ecn%.dev%.virtualearth%.net")
+        or string.match(customurl, "myfamily2%.[0-9]+%.[a-z0-9]+%.net")
+        or string.match(customurl, "tiles%.virtualearth%.net")
+        or string.match(customurl, "dev%.virtualearth%.net")
+        or string.match(customurl, "/media/")
+        or string.match(customurl, "/image/")
+        or string.match(customurl, "/images/")
+        or string.match(customurl, "/scripts/")
+        or string.match(customurl, "/style/")
+        or string.match(customurl, "/Search/Results%?surname=")
+        or string.match(customurl, "/Person/")
+        or string.match(customurl, "/Family/GetFamilyMembers/")
+        or string.match(customurl, "/Tree/Family/")
+        or string.match(customurl, "/Messages%?sendMessageTo=") then
+        if downloaded[customurl] ~= true then
+          table.insert(urls, { url=customurl })
+        end
+      end
+    end
+    for customurlnf in string.gmatch(html, '"(/[^"]+)"') do
+      local baseurl = "http://www.mundia.com"
+      local customurl = baseurl..customurlnf
+      if string.match(customurl, item_value)
+        or string.match(customurl, "c%.muncn%.com")
+        or string.match(customurl, "mediasvc%.ancestry%.com")
+        or string.match(customurl, "ecn%.dev%.virtualearth%.net")
+        or string.match(customurl, "myfamily2%.[0-9]+%.[a-z0-9]+%.net")
+        or string.match(customurl, "tiles%.virtualearth%.net")
+        or string.match(customurl, "dev%.virtualearth%.net")
+        or string.match(customurl, "/media/")
+        or string.match(customurl, "/image/")
+        or string.match(customurl, "/images/")
+        or string.match(customurl, "/scripts/")
+        or string.match(customurl, "/style/")
+        or string.match(customurl, "/Search/Results%?surname=")
+        or string.match(customurl, "/Person/")
+        or string.match(customurl, "/Family/GetFamilyMembers/")
+        or string.match(customurl, "/Tree/Family/")
+        or string.match(customurl, "/Messages%?sendMessageTo=") then
+        if downloaded[customurl] ~= true then
+          table.insert(urls, { url=customurl })
+        end
+      end
     end
 --    --example url: http://www.mundia.com/pk/Search/Results?surname=ABDULA&birthPlace=Verenigde%20Staten
 --    if string.match(url, "%.mundia%.com/[^/]+/Search/Results%?surname=[^/&]+&birthPlace=[^<>/&]+") then
