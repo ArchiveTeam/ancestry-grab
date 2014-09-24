@@ -159,7 +159,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     end
   elseif item_type == "mundiasurnames" then
     if string.match(url, "/Messages%?sendMessageTo=")
-      or string.match(url, "/Tree/Family/") then
+      or string.match(url, "/Tree/Family/")
+      or string.match(url, "/Person/Sources/") then
       return false
     elseif string.match(url, item_value)
       or string.match(url, "c%.muncn%.com")
@@ -390,7 +391,8 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         or string.match(customurl, "/Search/Results%?surname=")
         or string.match(customurl, "/Person/")
         or string.match(customurl, "/Family/GetFamilyMembers/") then
-        if not string.match(customurl, "amp;amp;") then
+        if not (string.match(customurl, "amp;amp;")
+          or string.match(customurl, "/Person/Sources/")) then
           if downloaded[customurl] ~= true then
             table.insert(urls, { url=customurl })
           end
@@ -415,7 +417,8 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         or string.match(customurl, "/Search/Results%?surname=")
         or string.match(customurl, "/Person/")
         or string.match(customurl, "/Family/GetFamilyMembers/") then
-        if not string.match(customurl, "amp;amp;") then
+        if not (string.match(customurl, "amp;amp;")
+          or string.match(customurl, "/Person/Sources/")) then
           if downloaded[customurl] ~= true then
             table.insert(urls, { url=customurl })
           end
