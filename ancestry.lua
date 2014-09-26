@@ -761,7 +761,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   elseif item_type == 'myfamilygroup' then
     if string.match(url, "/group/")
       or string.match(url, "/user/") then
-      if not string.match(url, "%?[^%?]+%?[^%?]+%?[%?]+%?") then
+      if not string.match(url, "%?[^%?]+%?[^%?]+%?") then
         html = read_file(file)
         for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
           if string.match(customurl, item_value)
