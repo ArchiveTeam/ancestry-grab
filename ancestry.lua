@@ -865,6 +865,18 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           table.insert(urls, { url=base..nextpage })
         end
       end
+      if (string.match(url, "http[s]?://[^/]+/group/[^/]+/media/[0-9]+%?start=[0-9]+") and string.match(html, "MF%.Media%.AlbumName")) then
+        if string.match(html, "authorName:") then
+          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/[0-9]+%?start=([0-9]+)")
+          local nextpage = page + 1
+          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/[0-9]+%?start=)[0-9]+")
+          table.insert(urls, { url=base..nextpage })
+        end
+      elseif (string.match(url, "http[s]?://[^/]+/group/[^/]+/media/[0-9]+") and string.match(html, "MF%.Media%.AlbumName")) then
+        local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/[0-9]+)")
+        local nextpage = 0
+        table.insert(urls, { url=base..nextpage })
+      end
       if string.match(url, "http[s]?://[^/]+/group/[^/]+/media/photos%?start=[0-9]+") then
         if string.match(html, "authorName:") then
           local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/photos%?start=([0-9]+)")
