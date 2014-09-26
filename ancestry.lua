@@ -815,6 +815,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         local base = string.match(url, "(http[s]?://[^/]+/group/.+)")
         if string.match(base, "/$") then
           table.insert(urls, { url=base.."discussions?view=detail&start=0" })
+          table.insert(urls, { url=base.."discussions?start=0" })
           table.insert(urls, { url=base.."media?start=0" })
           table.insert(urls, { url=base.."media/albums?start=0" })
           table.insert(urls, { url=base.."media/videos?start=0" })
@@ -823,6 +824,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           table.insert(urls, { url=base.."people?start=0" })
         else
           table.insert(urls, { url=base.."/discussions?view=detail&start=0" })
+          table.insert(urls, { url=base.."/discussions?start=0" })
           table.insert(urls, { url=base.."/media?start=0" })
           table.insert(urls, { url=base.."/media/albums?start=0" })
           table.insert(urls, { url=base.."/media/videos?start=0" })
@@ -836,6 +838,14 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/discussions%?view=detail&start=([0-9]+)")
           local nextpage = page + 1
           local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/discussions%?view=detail&start=)[0-9]+")
+          table.insert(urls, { url=base..nextpage })
+        end
+      end
+      if string.match(url, "http[s]?://[^/]+/group/[^/]+/discussions%?start=[0-9]+") then
+        if string.match(html, "authorName:") then
+          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/discussions%?start=([0-9]+)")
+          local nextpage = page + 1
+          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/discussions%?start=)[0-9]+")
           table.insert(urls, { url=base..nextpage })
         end
       end
