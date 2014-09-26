@@ -321,7 +321,7 @@ class WgetArgs(object):
                 item['url_name'] = url_name
                 
         elif item_type == "myfamilygroup":
-            wget_args.extend(["--no-cookies"])
+            wget_args.extend(["--load-cookies", "cookies.txt"])
             
             suffixesa = string.digits
             suffixesb = string.digits
