@@ -327,7 +327,7 @@ class WgetArgs(object):
             suffixesb = string.digits
             suffixesc = string.digits
             
-            for args in [('http://www.myfamily.com/user/{0}{1}{2}{3}'.format(item_value, a, b)) for a in suffixesa for b in suffixesb for c in suffixesc]:
+            for args in [('http://www.myfamily.com/user/{0}{1}{2}{3}'.format(item_value, a, b, c)) for a in suffixesa for b in suffixesb for c in suffixesc]:
                 wget_args.append(args[0])
                 
                 url_kind = "a"
