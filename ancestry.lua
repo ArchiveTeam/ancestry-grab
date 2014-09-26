@@ -761,192 +761,227 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   elseif item_type == 'myfamilygroup' then
     if string.match(url, "/group/")
       or string.match(url, "/user/") then
-      html = read_file(file)
-      for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
-        if string.match(customurl, item_value)
-          or string.match(customurl, "/Styles/")
-          or string.match(customurl, "/Scripts/")
-          or string.match(customurl, "/Flash/")
-          or string.match(customurl, "/Features/")
-          or string.match(customurl, "/Images/")
-          or string.match(customurl, "share%?s=")
-          or string.match(customurl, "/images/")
-          or string.match(customurl, "media%.myfamily%.com")
-          or string.match(customurl, "myfamily[0-9]%.[0-9]+%.[0-9a-z]+%.net")
-          or string.match(customurl, "/group/") then
-          if not (string.match(customurl, "signup%?url=")
-            or string.match(customurl, "signin%?url=")
-            or string.match(customurl, "/blog/")) then
-            if downloaded[customurl] ~= true then
-              table.insert(urls, { url=customurl })
+      if not string.match(url, "%?[^%?]+%?[^%?]+%?[%?]+%?") then
+        html = read_file(file)
+        for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
+          if string.match(customurl, item_value)
+            or string.match(customurl, "/Styles/")
+            or string.match(customurl, "/Scripts/")
+            or string.match(customurl, "/Flash/")
+            or string.match(customurl, "/Features/")
+            or string.match(customurl, "/Images/")
+            or string.match(customurl, "share%?s=")
+            or string.match(customurl, "/images/")
+            or string.match(customurl, "media%.myfamily%.com")
+            or string.match(customurl, "myfamily[0-9]%.[0-9]+%.[0-9a-z]+%.net")
+            or string.match(customurl, "/group/") then
+            if not (string.match(customurl, "signup%?url=")
+              or string.match(customurl, "signin%?url=")
+              or string.match(customurl, "/blog/")) then
+              if downloaded[customurl] ~= true then
+                table.insert(urls, { url=customurl })
+              end
             end
           end
         end
-      end
-      for customurlnf in string.gmatch(html, '"(/[^"]+)"') do
-        local baseurl = "http://www.myfamily.com"
-        local customurl = baseurl..customurlnf
-        if string.match(customurl, item_value)
-          or string.match(customurl, "/Styles/")
-          or string.match(customurl, "/Scripts/")
-          or string.match(customurl, "/Flash/")
-          or string.match(customurl, "/Features/")
-          or string.match(customurl, "/Images/")
-          or string.match(customurl, "share%?s=")
-          or string.match(customurl, "/images/")
-          or string.match(customurl, "media%.myfamily%.com")
-          or string.match(customurl, "myfamily[0-9]%.[0-9]+%.[0-9a-z]+%.net")
-          or string.match(customurl, "/group/") then
-          if not (string.match(customurl, "signup%?url=")
-            or string.match(customurl, "signin%?url=")
-            or string.match(customurl, "/blog/")) then
-            if downloaded[customurl] ~= true then
-              table.insert(urls, { url=customurl })
+        for customurlnf in string.gmatch(html, '"(/[^"]+)"') do
+          local baseurl = "http://www.myfamily.com"
+          local customurl = baseurl..customurlnf
+          if string.match(customurl, item_value)
+            or string.match(customurl, "/Styles/")
+            or string.match(customurl, "/Scripts/")
+            or string.match(customurl, "/Flash/")
+            or string.match(customurl, "/Features/")
+            or string.match(customurl, "/Images/")
+            or string.match(customurl, "share%?s=")
+            or string.match(customurl, "/images/")
+            or string.match(customurl, "media%.myfamily%.com")
+            or string.match(customurl, "myfamily[0-9]%.[0-9]+%.[0-9a-z]+%.net")
+            or string.match(customurl, "/group/") then
+            if not (string.match(customurl, "signup%?url=")
+              or string.match(customurl, "signin%?url=")
+              or string.match(customurl, "/blog/")) then
+              if downloaded[customurl] ~= true then
+                table.insert(urls, { url=customurl })
+              end
             end
           end
         end
-      end
-      for largeimage in string.gmatch(url, "(http[s]?://[^/]+/[^/]+/[^/]+/image)%?") do
-        if downloaded[largeimage] ~= true then
-          table.insert(urls, { url=largeimage })
+        for largeimage in string.gmatch(url, "(http[s]?://[^/]+/[^/]+/[^/]+/image)%?") do
+          if downloaded[largeimage] ~= true then
+            table.insert(urls, { url=largeimage })
+          end
         end
-      end
-      if (string.match(url, "http[s]?://[^/]+/group/.+") and string.match(parenturlgeturls, "/user/")) then
-        local base = string.match(url, "(http[s]?://[^/]+/group/.+)")
-        if string.match(base, "/$") then
-          table.insert(urls, { url=base.."discussions?view=detail&start=0" })
-          table.insert(urls, { url=base.."discussions?start=0" })
-          table.insert(urls, { url=base.."media?start=0" })
-          table.insert(urls, { url=base.."media/albums?start=0" })
-          table.insert(urls, { url=base.."media/videos?start=0" })
-          table.insert(urls, { url=base.."media/photos?start=0" })
-          table.insert(urls, { url=base.."media/slideshows?start=0" })
-          table.insert(urls, { url=base.."files?start=0" })
-          table.insert(urls, { url=base.."people?start=0" })
-        else
-          table.insert(urls, { url=base.."/discussions?view=detail&start=0" })
-          table.insert(urls, { url=base.."/discussions?start=0" })
-          table.insert(urls, { url=base.."/media?start=0" })
-          table.insert(urls, { url=base.."/media/albums?start=0" })
-          table.insert(urls, { url=base.."/media/videos?start=0" })
-          table.insert(urls, { url=base.."/media/photos?start=0" })
-          table.insert(urls, { url=base.."/media/slideshows?start=0" })
-          table.insert(urls, { url=base.."/files?start=0" })
-          table.insert(urls, { url=base.."/people?start=0" })
+        if (string.match(url, "http[s]?://[^/]+/group/.+") and string.match(parenturlgeturls, "/user/")) then
+          local base = string.match(url, "(http[s]?://[^/]+/group/.+)")
+          if string.match(base, "/$") then
+            table.insert(urls, { url=base.."discussions?view=detail&start=0" })
+            table.insert(urls, { url=base.."discussions?start=0" })
+            table.insert(urls, { url=base.."media?start=0" })
+            table.insert(urls, { url=base.."media/albums?start=0" })
+            table.insert(urls, { url=base.."media/videos?start=0" })
+            table.insert(urls, { url=base.."media/photos?start=0" })
+            table.insert(urls, { url=base.."media/slideshows?start=0" })
+            table.insert(urls, { url=base.."files?start=0" })
+            table.insert(urls, { url=base.."people?start=0" })
+          else
+            table.insert(urls, { url=base.."/discussions?view=detail&start=0" })
+            table.insert(urls, { url=base.."/discussions?start=0" })
+            table.insert(urls, { url=base.."/media?start=0" })
+            table.insert(urls, { url=base.."/media/albums?start=0" })
+            table.insert(urls, { url=base.."/media/videos?start=0" })
+            table.insert(urls, { url=base.."/media/photos?start=0" })
+            table.insert(urls, { url=base.."/media/slideshows?start=0" })
+            table.insert(urls, { url=base.."/files?start=0" })
+            table.insert(urls, { url=base.."/people?start=0" })
+          end
         end
-      end
-      if string.match(url, "http[s]?://[^/]+/group/[^/]+/discussions%?view=detail&start=[0-9]+") then
-        if string.match(html, "authorName:") then
-          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/discussions%?view=detail&start=([0-9]+)")
-          local nextpage = page + 1
-          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/discussions%?view=detail&start=)[0-9]+")
-          table.insert(urls, { url=base..nextpage })
+        if string.match(url, "http[s]?://[^/]+/group/[^/]+/discussions%?view=detail&start=[0-9]+") then
+          if string.match(html, "authorName:") then
+            local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/discussions%?view=detail&start=([0-9]+)")
+            local nextpage = page + 1
+            local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/discussions%?view=detail&start=)[0-9]+")
+            local fullurl = base..nextpage
+            if downloaded[fullurl] ~= true then
+              table.insert(urls, { url=fullurl })
+            end
+          end
         end
-      end
-      if string.match(url, "http[s]?://[^/]+/group/[^/]+/discussions%?start=[0-9]+") then
-        if string.match(html, "authorName:") then
-          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/discussions%?start=([0-9]+)")
-          local nextpage = page + 1
-          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/discussions%?start=)[0-9]+")
-          table.insert(urls, { url=base..nextpage })
+        if string.match(url, "http[s]?://[^/]+/group/[^/]+/discussions%?start=[0-9]+") then
+          if string.match(html, "authorName:") then
+            local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/discussions%?start=([0-9]+)")
+            local nextpage = page + 1
+            local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/discussions%?start=)[0-9]+")
+            local fullurl = base..nextpage
+            if downloaded[fullurl] ~= true then
+              table.insert(urls, { url=fullurl })
+            end
+          end
         end
-      end
-      if string.match(url, "http[s]?://[^/]+/group/[^/]+/media%?start=[0-9]+") then
-        if string.match(html, "authorName:") then
-          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media%?start=([0-9]+)")
-          local nextpage = page + 1
-          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media%?start=)[0-9]+")
-          table.insert(urls, { url=base..nextpage })
+        if string.match(url, "http[s]?://[^/]+/group/[^/]+/media%?start=[0-9]+") then
+          if string.match(html, "authorName:") then
+            local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media%?start=([0-9]+)")
+            local nextpage = page + 1
+            local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media%?start=)[0-9]+")
+            local fullurl = base..nextpage
+            if downloaded[fullurl] ~= true then
+              table.insert(urls, { url=fullurl })
+            end
+          end
         end
-      end
-      if string.match(url, "http[s]?://[^/]+/group/[^/]+/media/albums%?start=[0-9]+") then
-        if string.match(html, "authorName:") then
-          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/albums%?start=([0-9]+)")
-          local nextpage = page + 1
-          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/albums%?start=)[0-9]+")
-          table.insert(urls, { url=base..nextpage })
+        if string.match(url, "http[s]?://[^/]+/group/[^/]+/media/albums%?start=[0-9]+") then
+          if string.match(html, "authorName:") then
+            local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/albums%?start=([0-9]+)")
+            local nextpage = page + 1
+            local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/albums%?start=)[0-9]+")
+            local fullurl = base..nextpage
+            if downloaded[fullurl] ~= true then
+              table.insert(urls, { url=fullurl })
+            end
+          end
         end
-      end
-      if (string.match(url, "http[s]?://[^/]+/group/[^/]+/media/[0-9]+%?start=[0-9]+") and string.match(html, "MF%.Media%.AlbumName")) then
-        if string.match(html, "authorName:") then
-          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/[0-9]+%?start=([0-9]+)")
-          local nextpage = page + 1
-          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/[0-9]+%?start=)[0-9]+")
-          table.insert(urls, { url=base..nextpage })
+        if (string.match(url, "http[s]?://[^/]+/group/[^/]+/media/[0-9]+%?start=[0-9]+") and string.match(html, "MF%.Media%.AlbumName")) then
+          if string.match(html, "authorName:") then
+            local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/[0-9]+%?start=([0-9]+)")
+            local nextpage = page + 1
+            local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/[0-9]+%?start=)[0-9]+")
+            local fullurl = base..nextpage
+            if downloaded[fullurl] ~= true then
+              table.insert(urls, { url=fullurl })
+            end
+          end
+        elseif (string.match(url, "http[s]?://[^/]+/group/[^/]+/media/[0-9]+") and string.match(html, "MF%.Media%.AlbumName")) then
+          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/[0-9]+)")
+          local nextpage = 0
+          local fullurl = base..nextpage
+          if downloaded[fullurl] ~= true then
+            table.insert(urls, { url=fullurl })
+          end
         end
-      elseif (string.match(url, "http[s]?://[^/]+/group/[^/]+/media/[0-9]+") and string.match(html, "MF%.Media%.AlbumName")) then
-        local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/[0-9]+)")
-        local nextpage = 0
-        table.insert(urls, { url=base..nextpage })
-      end
-      if string.match(url, "http[s]?://[^/]+/group/[^/]+/media/photos%?start=[0-9]+") then
-        if string.match(html, "authorName:") then
-          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/photos%?start=([0-9]+)")
-          local nextpage = page + 1
-          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/photos%?start=)[0-9]+")
-          table.insert(urls, { url=base..nextpage })
+        if string.match(url, "http[s]?://[^/]+/group/[^/]+/media/photos%?start=[0-9]+") then
+          if string.match(html, "authorName:") then
+            local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/photos%?start=([0-9]+)")
+            local nextpage = page + 1
+            local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/photos%?start=)[0-9]+")
+            local fullurl = base..nextpage
+            if downloaded[fullurl] ~= true then
+              table.insert(urls, { url=fullurl })
+            end
+          end
         end
-      end
-      if string.match(url, "http[s]?://[^/]+/group/[^/]+/media/videos%?start=[0-9]+") then
-        if string.match(html, "authorName:") then
-          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/videos%?start=([0-9]+)")
-          local nextpage = page + 1
-          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/videos%?start=)[0-9]+")
-          table.insert(urls, { url=base..nextpage })
+        if string.match(url, "http[s]?://[^/]+/group/[^/]+/media/videos%?start=[0-9]+") then
+          if string.match(html, "authorName:") then
+            local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/videos%?start=([0-9]+)")
+            local nextpage = page + 1
+            local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/videos%?start=)[0-9]+")
+            local fullurl = base..nextpage
+            if downloaded[fullurl] ~= true then
+              table.insert(urls, { url=fullurl })
+            end
+          end
         end
-      end
-      if string.match(url, "http[s]?://[^/]+/group/[^/]+/media/slideshows%?start=[0-9]+") then
-        if string.match(html, "authorName:") then
-          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/slideshows%?start=([0-9]+)")
-          local nextpage = page + 1
-          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/slideshows%?start=)[0-9]+")
-          table.insert(urls, { url=base..nextpage })
+        if string.match(url, "http[s]?://[^/]+/group/[^/]+/media/slideshows%?start=[0-9]+") then
+          if string.match(html, "authorName:") then
+            local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/slideshows%?start=([0-9]+)")
+            local nextpage = page + 1
+            local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/slideshows%?start=)[0-9]+")
+            local fullurl = base..nextpage
+            if downloaded[fullurl] ~= true then
+              table.insert(urls, { url=fullurl })
+            end
+          end
         end
-      end
-      if string.match(url, "http[s]?://[^/]+/group/[^/]+/files%?start=[0-9]+") then
-        if string.match(html, "authorName:") then
-          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/files%?start=([0-9]+)")
-          local nextpage = page + 1
-          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/files%?start=)[0-9]+")
-          table.insert(urls, { url=base..nextpage })
+        if string.match(url, "http[s]?://[^/]+/group/[^/]+/files%?start=[0-9]+") then
+          if string.match(html, "authorName:") then
+            local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/files%?start=([0-9]+)")
+            local nextpage = page + 1
+            local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/files%?start=)[0-9]+")
+            local fullurl = base..nextpage
+            if downloaded[fullurl] ~= true then
+              table.insert(urls, { url=fullurl })
+            end
+          end
         end
-      end
-      if string.match(url, "http[s]?://[^/]+/group/[^/]+/people%?start=[0-9]+") then
-        if string.match(html, "authorName:") then
-          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/people%?start=([0-9]+)")
-          local nextpage = page + 1
-          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/people%?start=)[0-9]+")
-          table.insert(urls, { url=base..nextpage })
-        end
-      elseif string.match(url, "http[s]?://[^/]+/group/[^/]+/people") then
-        if string.match(html, "authorName:") then
-          local base = url
-          table.insert(urls, { url=base.."?t=a" })
-          table.insert(urls, { url=base.."?t=b" })
-          table.insert(urls, { url=base.."?t=c" })
-          table.insert(urls, { url=base.."?t=d" })
-          table.insert(urls, { url=base.."?t=e" })
-          table.insert(urls, { url=base.."?t=f" })
-          table.insert(urls, { url=base.."?t=g" })
-          table.insert(urls, { url=base.."?t=h" })
-          table.insert(urls, { url=base.."?t=i" })
-          table.insert(urls, { url=base.."?t=j" })
-          table.insert(urls, { url=base.."?t=k" })
-          table.insert(urls, { url=base.."?t=l" })
-          table.insert(urls, { url=base.."?t=m" })
-          table.insert(urls, { url=base.."?t=n" })
-          table.insert(urls, { url=base.."?t=o" })
-          table.insert(urls, { url=base.."?t=p" })
-          table.insert(urls, { url=base.."?t=q" })
-          table.insert(urls, { url=base.."?t=r" })
-          table.insert(urls, { url=base.."?t=s" })
-          table.insert(urls, { url=base.."?t=t" })
-          table.insert(urls, { url=base.."?t=u" })
-          table.insert(urls, { url=base.."?t=v" })
-          table.insert(urls, { url=base.."?t=w" })
-          table.insert(urls, { url=base.."?t=x" })
-          table.insert(urls, { url=base.."?t=y" })
-          table.insert(urls, { url=base.."?t=z" })
+        if string.match(url, "http[s]?://[^/]+/group/[^/]+/people%?start=[0-9]+") then
+          if string.match(html, "authorName:") then
+            local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/people%?start=([0-9]+)")
+            local nextpage = page + 1
+            local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/people%?start=)[0-9]+")
+            local fullurl = base..nextpage
+            if downloaded[fullurl] ~= true then
+              table.insert(urls, { url=fullurl })
+            end
+          end
+        elseif string.match(url, "http[s]?://[^/]+/group/[^/]+/people") then
+          if string.match(html, "authorName:") then
+            local base = url
+            table.insert(urls, { url=base.."?t=a" })
+            table.insert(urls, { url=base.."?t=b" })
+            table.insert(urls, { url=base.."?t=c" })
+            table.insert(urls, { url=base.."?t=d" })
+            table.insert(urls, { url=base.."?t=e" })
+            table.insert(urls, { url=base.."?t=f" })
+            table.insert(urls, { url=base.."?t=g" })
+            table.insert(urls, { url=base.."?t=h" })
+            table.insert(urls, { url=base.."?t=i" })
+            table.insert(urls, { url=base.."?t=j" })
+            table.insert(urls, { url=base.."?t=k" })
+            table.insert(urls, { url=base.."?t=l" })
+            table.insert(urls, { url=base.."?t=m" })
+            table.insert(urls, { url=base.."?t=n" })
+            table.insert(urls, { url=base.."?t=o" })
+            table.insert(urls, { url=base.."?t=p" })
+            table.insert(urls, { url=base.."?t=q" })
+            table.insert(urls, { url=base.."?t=r" })
+            table.insert(urls, { url=base.."?t=s" })
+            table.insert(urls, { url=base.."?t=t" })
+            table.insert(urls, { url=base.."?t=u" })
+            table.insert(urls, { url=base.."?t=v" })
+            table.insert(urls, { url=base.."?t=w" })
+            table.insert(urls, { url=base.."?t=x" })
+            table.insert(urls, { url=base.."?t=y" })
+            table.insert(urls, { url=base.."?t=z" })
+          end
         end
       end
     end
