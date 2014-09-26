@@ -107,6 +107,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   local parenturl = parent["url"]
   local html = nil
   
+  parenturlgeturls = parent["url"]
+  
   if downloaded[url] == true then
     return false
   end
@@ -757,7 +759,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       end
     end
   elseif item_type == 'myfamilygroup' then
-    if string.match(url, item_value) then
+    if string.match(url, "/group/") then
       html = read_file(file)
       for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
         if string.match(customurl, item_value)
@@ -806,6 +808,22 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       for largeimage in string.gmatch(url, "(http[s]?://[^/]+/[^/]+/[^/]+/image)%?") do
         if downloaded[largeimage] ~= true then
           table.insert(urls, { url=largeimage })
+        end
+      end
+      if (string.match(url, "http[s]?://[^/]+/group/.+") and string.match(parenturlgeturls, "/user/")) then
+        local base = string.match(url, "(http[s]?://[^/]+/group/.+)")
+        if string.match(base, "/$") then
+          table.insert(urls, { url=base.."discussions?view=detail&start=0" })
+          table.insert(urls, { url=base.."media?start=0" })
+          table.insert(urls, { url=base.."media/albums?start=0" })
+          table.insert(urls, { url=base.."files?start=0" })
+          table.insert(urls, { url=base.."people?start=0" })
+        else
+          table.insert(urls, { url=base.."/discussions?view=detail&start=0" })
+          table.insert(urls, { url=base.."/media?start=0" })
+          table.insert(urls, { url=base.."/media/albums?start=0" })
+          table.insert(urls, { url=base.."/files?start=0" })
+          table.insert(urls, { url=base.."/people?start=0" })
         end
       end
       if string.match(url, "http[s]?://[^/]+/group/[^/]+/discussions%?view=detail&start=[0-9]+") then
