@@ -325,18 +325,17 @@ class WgetArgs(object):
             
             suffixesa = string.digits
             suffixesb = string.digits
-            suffixesc = string.digits
             
             for args in [('http://www.myfamily.com/user/{0}{1}{2}0'.format(item_value, a, b), \
-                          'http://www.myfamily.com/blog/{0}{1}{2}1'.format(item_value, a, b), \
+                          'http://www.myfamily.com/user/{0}{1}{2}1'.format(item_value, a, b), \
                           'http://www.myfamily.com/user/{0}{1}{2}2'.format(item_value, a, b), \
-                          'http://www.myfamily.com/blog/{0}{1}{2}3'.format(item_value, a, b), \
+                          'http://www.myfamily.com/user/{0}{1}{2}3'.format(item_value, a, b), \
                           'http://www.myfamily.com/user/{0}{1}{2}4'.format(item_value, a, b), \
-                          'http://www.myfamily.com/blog/{0}{1}{2}5'.format(item_value, a, b), \
+                          'http://www.myfamily.com/user/{0}{1}{2}5'.format(item_value, a, b), \
                           'http://www.myfamily.com/user/{0}{1}{2}6'.format(item_value, a, b), \
-                          'http://www.myfamily.com/blog/{0}{1}{2}7'.format(item_value, a, b), \
+                          'http://www.myfamily.com/user/{0}{1}{2}7'.format(item_value, a, b), \
                           'http://www.myfamily.com/user/{0}{1}{2}8'.format(item_value, a, b), \
-                          'http://www.myfamily.com/user/{0}{1}{2}9'.format(item_value, a, b, c)) for a in suffixesa for b in suffixesb for c in suffixesc]:
+                          'http://www.myfamily.com/user/{0}{1}{2}9'.format(item_value, a, b)) for a in suffixesa for b in suffixesb]:
                 wget_args.append(args[0])
                 wget_args.append(args[1])
                 wget_args.append(args[2])
