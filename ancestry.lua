@@ -820,6 +820,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           table.insert(urls, { url=base.."media/albums?start=0" })
           table.insert(urls, { url=base.."media/videos?start=0" })
           table.insert(urls, { url=base.."media/photos?start=0" })
+          table.insert(urls, { url=base.."media/slideshows?start=0" })
           table.insert(urls, { url=base.."files?start=0" })
           table.insert(urls, { url=base.."people?start=0" })
         else
@@ -829,6 +830,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           table.insert(urls, { url=base.."/media/albums?start=0" })
           table.insert(urls, { url=base.."/media/videos?start=0" })
           table.insert(urls, { url=base.."/media/photos?start=0" })
+          table.insert(urls, { url=base.."/media/slideshows?start=0" })
           table.insert(urls, { url=base.."/files?start=0" })
           table.insert(urls, { url=base.."/people?start=0" })
         end
@@ -890,6 +892,14 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/videos%?start=([0-9]+)")
           local nextpage = page + 1
           local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/videos%?start=)[0-9]+")
+          table.insert(urls, { url=base..nextpage })
+        end
+      end
+      if string.match(url, "http[s]?://[^/]+/group/[^/]+/media/slideshows%?start=[0-9]+") then
+        if string.match(html, "authorName:") then
+          local page = string.match(url, "http[s]?://[^/]+/group/[^/]+/media/slideshows%?start=([0-9]+)")
+          local nextpage = page + 1
+          local base = string.match(url, "(http[s]?://[^/]+/group/[^/]+/media/slideshows%?start=)[0-9]+")
           table.insert(urls, { url=base..nextpage })
         end
       end
