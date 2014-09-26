@@ -197,7 +197,7 @@ class WgetArgs(object):
         item['item_type'] = item_type
         item['item_value'] = item_value
         
-        assert item_type in ("mundiasurnames", "genealogy", "familytreemaker", "familyorigins", "genforum", "myfamily", "genealogysite")
+        assert item_type in ("mundiasurnames", "genealogy", "familytreemaker", "familyorigins", "genforum", "myfamily", "genealogysite", "myfamilygroup")
         
         if item_type == 'mundiasurnames':
             assert ':' in item_value
@@ -320,6 +320,32 @@ class WgetArgs(object):
                 item['url_third'] = url_third
                 item['url_name'] = url_name
                 
+        elif item_type == "myfamilygroup":
+            wget_args.extend(["--no-cookies"])
+            
+            suffixesa = string.digits
+            suffixesb = string.digits
+            suffixesc = string.digits
+            
+            for args in [('http://www.myfamily.com/user/{0}{1}{2}{3}'.format(item_value, a, b)) for a in suffixesa for b in suffixesb for c in suffixesc]:
+                wget_args.append(args[0])
+                
+                url_kind = "a"
+                url_first = "b"
+                url_second = "c"
+                url_third = "d"
+                url_name = "e"
+                assert url_kind
+                assert url_first
+                assert url_second
+                assert url_third
+                assert url_name
+                item['url_kind'] = url_kind
+                item['url_first'] = url_first
+                item['url_second'] = url_second
+                item['url_third'] = url_third
+                item['url_name'] = url_name
+            
         elif item_type == "genealogysite":
             wget_args.append('http://www.familyorigins.com/')
             wget_args.append('http://www.genealogy.com/')
