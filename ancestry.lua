@@ -764,7 +764,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       if not string.match(url, "%?[^%?]+%?[^%?]+%?") then
         html = read_file(file)
         for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
-          if string.match(customurl, item_value)
+          if string.match(customurl, "/user/"..item_value)
             or string.match(customurl, "/Styles/")
             or string.match(customurl, "/Scripts/")
             or string.match(customurl, "/Flash/")
@@ -787,7 +787,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         for customurlnf in string.gmatch(html, '"(/[^"]+)"') do
           local baseurl = "http://www.myfamily.com"
           local customurl = baseurl..customurlnf
-          if string.match(customurl, item_value)
+          if string.match(customurl, "/user/"..item_value)
             or string.match(customurl, "/Styles/")
             or string.match(customurl, "/Scripts/")
             or string.match(customurl, "/Flash/")
