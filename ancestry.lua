@@ -135,6 +135,14 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     return false
   end
   
+  if not (string.match(url, "http[s]?://www%.familyorigins%.com/") or string.match(url, "http[s]?://familyorigins%.com/") or string.match(url, "http[s]?://familytreemaker%.genealogy%.com/") or string.match(url, "http[s]?://genforum%.genealogy%.com/") or string.match(url, "http[s]?://www%.genealogy%.com/") or string.match(url, "http[s]?://genealogy%.com/") or string.match(url, "http[s]?://www%.genforum%.com/") or string.match(url, "http[s]?://genforum%.com/")) then
+    if html == 1 then
+      return false
+    else
+      return verdict
+    end
+  end
+  
   if item_type == "genealogy" then
     if string.match(url, "www%.familyorigins%.com") then
       return false
@@ -1004,7 +1012,9 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
     downloaded[url.url] = true
   end
   
-  if (status_code == 301 and string.match(url["url"], "http[s]?://[a-z][a-z]%.mundia%.com")) then
+  if err == "AUTHFAILED" then
+    return wget.actions.EXIT
+  elseif (status_code == 301 and string.match(url["url"], "http[s]?://[a-z][a-z]%.mundia%.com")) then
     return wget.actions.EXIT
   elseif (status_code ==  500 and string.match(url["url"], "aspxerrorpath=")) then
     return wget.actions.NOTHING
