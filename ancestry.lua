@@ -1013,8 +1013,6 @@ wget.callbacks.httploop_result = function(url, err, http_stat)
   end
   
   if err == "AUTHFAILED" then
-    io.stdout:write("Server returned "..err.." for url "..url["url"]..". Skipping url.\n")
-    io.stdout:flush()
     return wget.actions.EXIT
   elseif (status_code == 301 and string.match(url["url"], "http[s]?://[a-z][a-z]%.mundia%.com")) then
     return wget.actions.EXIT
