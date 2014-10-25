@@ -112,20 +112,6 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   if downloaded[url] == true then
     return false
   end
-  
-  if string.match(url, "chat%.genealogy%.com") then
-    return false
-  elseif string.match(url, "chat01%.genealogy%.com") then
-    return false
-  elseif string.match(url, "www%.ancestrypromo%.com%.au") then
-    return false
-  elseif string.match(url, "neh%.genealogy%.com") then
-    return false
-  elseif string.match(url, "www%.bessgenealogy%.com") then
-    return false
-  elseif string.match(url, "matte%.accessgenealogy%.com") then
-    return false
-  end
     
   if not string.match(url, "%.genealogy%.com") then
     if not string.match(url, "%.familyorigins%.com") then
@@ -133,8 +119,6 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
         return verdict
       elseif string.match(parenturl, "%.familyorigins%.com") then
         return verdict
-      else
-        return false
       end
     end
   end
@@ -191,6 +175,14 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     if string.match(url, "chat%.genealogy%.com") then
       return false
     elseif string.match(url, "chat01%.genealogy%.com") then
+      return false
+    elseif string.match(url, "www%.ancestrypromo%.com%.au") then
+      return false
+    elseif string.match(url, "neh%.genealogy%.com") then
+      return false
+    elseif string.match(url, "www%.bessgenealogy%.com") then
+      return false
+    elseif string.match(url, "matte%.accessgenealogy%.com") then
       return false
     elseif (string.match(url, "%.genealogy%.com/genealogy/") or string.match(url, "%.familyorigins%.com/genealogy/")) and
       html == 1 then
