@@ -117,6 +117,14 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     return false
   elseif string.match(url, "chat01%.genealogy%.com") then
     return false
+  elseif string.match(url, "www%.ancestrypromo%.com%.au") then
+    return false
+  elseif string.match(url, "neh%.genealogy%.com") then
+    return false
+  elseif string.match(url, "www%.bessgenealogy%.com") then
+    return false
+  elseif string.match(url, "matte%.accessgenealogy%.com") then
+    return false
   end
     
   if not string.match(url, "%.genealogy%.com") then
