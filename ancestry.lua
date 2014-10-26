@@ -356,7 +356,6 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         end
       end
     end
-  end
   if item_type == "mundiasurnames" then
     --example url: http://www.mundia.com/us/surnames/aleo
 --    if string.match(url, "%.mundia%.com/[^/]+/surnames/[^/]+") then
