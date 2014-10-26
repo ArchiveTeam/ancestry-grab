@@ -322,40 +322,6 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   local urls = {}
   local html = nil
   
-  if item_type == "genealogy" or item_type == "familytreemaker" or item_type == "familyorigins" then
-    html = read_file(file)
-    for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
-      if string.match(customurl, "/"..url_kind.."/"..url_first.."/"..url_second.."/"..url_third.."/"..url_name)
-        or string.match(customurl, "%.jpg")
-        or string.match(customurl, "%.png")
-        or string.match(customurl, "%.gif")
-        or string.match(customurl, "%.jpeg") then
-        if downloaded[customurl] ~= true then
-          table.insert(urls, { url=customurl })
-        end
-      end
-    end
-    for customurlnf in string.gmatch(html, '"(/[^"]+)"') do
-      if item_type == "genealogy" then
-        local baseurl = "http://www.genealogy.com"
-      elseif item_type == "familytreemaker" then
-        local baseurl = "http://familytreemaker.genealogy.com"
-      elseif item_type == "familyorigins" then
-        local baseurl = "http://www.familyorigins.com"
-      end
-      if baseurl then
-        local customurl = baseurl..customurlnf
-        if string.match(customurl, "/"..url_kind.."/"..url_first.."/"..url_second.."/"..url_third.."/"..url_name)
-          or string.match(customurl, "%.jpg")
-          or string.match(customurl, "%.png")
-          or string.match(customurl, "%.gif")
-          or string.match(customurl, "%.jpeg") then
-          if downloaded[customurl] ~= true then
-            table.insert(urls, { url=customurl })
-          end
-        end
-      end
-    end
   if item_type == "mundiasurnames" then
     --example url: http://www.mundia.com/us/surnames/aleo
 --    if string.match(url, "%.mundia%.com/[^/]+/surnames/[^/]+") then
@@ -534,6 +500,39 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         or string.match(customurl, "/Family/GetFamilyMembers/") then
         if not (string.match(customurl, "amp;amp;")
           or string.match(customurl, "/Person/Sources/")) then
+          if downloaded[customurl] ~= true then
+            table.insert(urls, { url=customurl })
+          end
+        end
+      end
+    end
+  elseif item_type == "genealogy" or item_type == "familytreemaker" or item_type == "familyorigins" then
+    for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
+      if string.match(customurl, "/"..url_kind.."/"..url_first.."/"..url_second.."/"..url_third.."/"..url_name)
+        or string.match(customurl, "%.jpg")
+        or string.match(customurl, "%.png")
+        or string.match(customurl, "%.gif")
+        or string.match(customurl, "%.jpeg") then
+        if downloaded[customurl] ~= true then
+          table.insert(urls, { url=customurl })
+        end
+      end
+    end
+    for customurlnf in string.gmatch(html, '"(/[^"]+)"') do
+      if item_type == "genealogy" then
+        local baseurl = "http://www.genealogy.com"
+      elseif item_type == "familytreemaker" then
+        local baseurl = "http://familytreemaker.genealogy.com"
+      elseif item_type == "familyorigins" then
+        local baseurl = "http://www.familyorigins.com"
+      end
+      if baseurl then
+        local customurl = baseurl..customurlnf
+        if string.match(customurl, "/"..url_kind.."/"..url_first.."/"..url_second.."/"..url_third.."/"..url_name)
+          or string.match(customurl, "%.jpg")
+          or string.match(customurl, "%.png")
+          or string.match(customurl, "%.gif")
+          or string.match(customurl, "%.jpeg") then
           if downloaded[customurl] ~= true then
             table.insert(urls, { url=customurl })
           end
