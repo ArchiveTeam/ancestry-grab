@@ -112,6 +112,16 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   if downloaded[url] == true then
     return false
   end
+    
+  if not string.match(url, "%.genealogy%.com") then
+    if not string.match(url, "%.familyorigins%.com") then
+      if string.match(parenturl, "%.genealogy%.com") then
+        return verdict
+      elseif string.match(parenturl, "%.familyorigins%.com") then
+        return verdict
+      end
+    end
+  end
 
   if string.match(url, "///") then
     return false
@@ -120,6 +130,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   if not (string.match(url, "http[s]?://www%.familyorigins%.com/") or string.match(url, "http[s]?://familyorigins%.com/") or string.match(url, "http[s]?://familytreemaker%.genealogy%.com/") or string.match(url, "http[s]?://genforum%.genealogy%.com/") or string.match(url, "http[s]?://www%.genealogy%.com/") or string.match(url, "http[s]?://genealogy%.com/") or string.match(url, "http[s]?://www%.genforum%.com/") or string.match(url, "http[s]?://genforum%.com/")) then
     if html == 1 then
       return false
+    else
+      return verdict
     end
   end
   
@@ -130,6 +142,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return false
     elseif string.match(url, "genforum%.genealogy%.com") then
       return false
+    else
+      return verdict
     end
   elseif item_type == "familytreemaker" then
     if string.match(url, "www%.familyorigins%.com") then
@@ -138,6 +152,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return false
     elseif string.match(url, "genforum%.genealogy%.com") then
       return false
+    else
+      return verdict
     end
   elseif item_type == "familyorigins" then
     if string.match(url, "www%.genealogy%.com") then
@@ -146,6 +162,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       return false
     elseif string.match(url, "genforum%.genealogy%.com") then
       return false
+    else
+      return verdict
     end
   elseif item_type == "genforum" then
     return verdict
@@ -541,6 +559,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
     if string.match(url, "http[s]?://[^%.]+%.genealogy%.com/users/") then
       local genealogybase = string.match(url, "(http[s]?://[^%.]+%.genealogy%.com/)users/")
       local genealogyrest = string.match(url, "http[s]?://[^%.]+%.genealogy%.com/(users/.+)")
+<<<<<<< HEAD
       if genealogyrest then
         local genealogyurl = genealogybase.."genealogy/"..genealogyrest
         if downloaded[genealogyurl] ~= true then
@@ -556,25 +575,31 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           table.insert(urls, { url=genealogyurl })
         end
       end
+=======
+      local genealogyurl = genealogybase.."genealogy/"..genealogyrest
+      table.insert(urls, { url=genealogyurl })
+    elseif string.match(url, "http[s]?://[^%.]+%.genealogy%.com/genealogy/") then
+      local genealogybase = string.match(url, "(http[s]?://[^%.]+%.genealogy%.com/)genealogy/")
+      local genealogyrest = string.match(url, "http[s]?://[^%.]+%.genealogy%.com/genealogy/(.+)")
+      local genealogyurl = genealogybase..genealogyrest
+      table.insert(urls, { url=genealogyurl })
+>>>>>>> parent of 46fa449... ancestry.lua: cleaning the script up!
     end
     
     if string.match(url, "http[s]?://.+/.+") then
       for genealogybasea in string.gmatch(url, "(http[s]?://.+/)") do
-        if downloaded[genealogybasea] ~= true then
-          table.insert(urls, { url=genealogybasea })
-        end
+        table.insert(urls, { url=genealogybasea })
       end
       
       for genealogybaseb in string.gmatch(url, "(http[s]?://.+)/") do
-        if downloaded[genealogybaseb] ~= true then
-          table.insert(urls, { url=genealogybaseb })
-        end
+        table.insert(urls, { url=genealogybaseb })
       end
     end
   elseif item_type == "familytreemaker" then
     if string.match(url, "http[s]?://familytreemaker%.genealogy%.com/users/") then
       local genealogybase = string.match(url, "(http[s]?://familytreemaker%.genealogy%.com/)users/")
       local genealogyrest = string.match(url, "http[s]?://familytreemaker%.genealogy%.com/(users/.+)")
+<<<<<<< HEAD
       if genealogyrest then
         local genealogyurl = genealogybase.."genealogy/"..genealogyrest
         if downloaded[genealogyurl] ~= true then
@@ -590,25 +615,31 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           table.insert(urls, { url=genealogyurl })
         end
       end
+=======
+      local genealogyurl = genealogybase.."genealogy/"..genealogyrest
+      table.insert(urls, { url=genealogyurl })
+    elseif string.match(url, "http[s]?://familytreemaker%.genealogy%.com/genealogy/") then
+      local genealogybase = string.match(url, "(http[s]?://familytreemaker%.genealogy%.com/)genealogy/")
+      local genealogyrest = string.match(url, "http[s]?://familytreemaker%.genealogy%.com/genealogy/(.+)")
+      local genealogyurl = genealogybase..genealogyrest
+      table.insert(urls, { url=genealogyurl })
+>>>>>>> parent of 46fa449... ancestry.lua: cleaning the script up!
     end
     
     if string.match(url, "http[s]?://.+/.+") then
       for genealogybasea in string.gmatch(url, "(http[s]?://.+/)") do
-        if downloaded[genealogybasea] ~= true then
-          table.insert(urls, { url=genealogybasea })
-        end
+        table.insert(urls, { url=genealogybasea })
       end
       
       for genealogybaseb in string.gmatch(url, "(http[s]?://.+)/") do
-        if downloaded[genealogybaseb] ~= true then
-          table.insert(urls, { url=genealogybaseb })
-        end
+        table.insert(urls, { url=genealogybaseb })
       end
     end
   elseif item_type == "familyorigins" then
     if string.match(url, "http[s]?://[^%.]+%.familyorigins%.com/users/") then
       local genealogybase = string.match(url, "(http[s]?://[^%.]+%.familyorigins%.com/)users/")
       local genealogyrest = string.match(url, "http[s]?://[^%.]+%.familyorigins%.com/(users/.+)")
+<<<<<<< HEAD
       if genealogyrest then
         local genealogyurl = genealogybase.."genealogy/"..genealogyrest
         if downloaded[genealogyurl] ~= true then
@@ -624,24 +655,30 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           table.insert(urls, { url=genealogyurl })
         end
       end
+=======
+      local genealogyurl = genealogybase.."genealogy/"..genealogyrest
+      table.insert(urls, { url=genealogyurl })
+    elseif string.match(url, "http[s]?://[^%.]+%.familyorigins%.com/genealogy/") then
+      local genealogybase = string.match(url, "(http[s]?://[^%.]+%.familyorigins%.com/)genealogy/")
+      local genealogyrest = string.match(url, "http[s]?://[^%.]+%.familyorigins%.com/genealogy/(.+)")
+      local genealogyurl = genealogybase..genealogyrest
+      table.insert(urls, { url=genealogyurl })
+>>>>>>> parent of 46fa449... ancestry.lua: cleaning the script up!
     end
     
     if string.match(url, "http[s]?://.+/.+") then
       for genealogybasea in string.gmatch(url, "(http[s]?://.+/)") do
-        if downloaded[genealogybasea] ~= true then
-          table.insert(urls, { url=genealogybasea })
-        end
+        table.insert(urls, { url=genealogybasea })
       end
       
       for genealogybaseb in string.gmatch(url, "(http[s]?://.+)/") do
-        if downloaded[genealogybaseb] ~= true then
-          table.insert(urls, { url=genealogybaseb })
-        end
+        table.insert(urls, { url=genealogybaseb })
       end
     end
   elseif item_type == "genforum" then
     if string.match(url, "http[s]?://genforum%.genealogy%.com/[^/]+/") then
       local genealogyrest = string.match(url, "http[s]?://genforum%.genealogy%.com/([^/]+/.+)")
+<<<<<<< HEAD
       if genealogyrest then
         local genealogyurl = "http://genforum.com/"..genealogyrest
         if downloaded[genealogyurl] ~= true then
@@ -656,19 +693,23 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           table.insert(urls, { url=genealogyurl })
         end
       end
+=======
+      local genealogyurl = "http://genforum.com/"..genealogyrest
+      table.insert(urls, { url=genealogyurl })
+    elseif string.match(url, "http[s]?://genforum%.com/[^/]+/") then
+      local genealogyrest = string.match(url, "http[s]?://genforum%.com/([^/]+/.+)")
+      local genealogyurl = "http://genforum.genealogy.com/"..genealogyrest
+      table.insert(urls, { url=genealogyurl })
+>>>>>>> parent of 46fa449... ancestry.lua: cleaning the script up!
     end
     
     if string.match(url, "http[s]?://.+/.+") then
       for genealogybasea in string.gmatch(url, "(http[s]?://.+/)") do
-        if downloaded[genealogybasea] ~= true then
-          table.insert(urls, { url=genealogybasea })
-        end
+        table.insert(urls, { url=genealogybasea })
       end
       
       for genealogybaseb in string.gmatch(url, "(http[s]?://.+)/") do
-        if downloaded[genealogybaseb] ~= true then
-          table.insert(urls, { url=genealogybaseb })
-        end
+        table.insert(urls, { url=genealogybaseb })
       end
     end
   elseif item_type == 'genealogysite' then
