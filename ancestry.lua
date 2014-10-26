@@ -541,16 +541,20 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
     if string.match(url, "http[s]?://[^%.]+%.genealogy%.com/users/") then
       local genealogybase = string.match(url, "(http[s]?://[^%.]+%.genealogy%.com/)users/")
       local genealogyrest = string.match(url, "http[s]?://[^%.]+%.genealogy%.com/(users/.+)")
-      local genealogyurl = genealogybase.."genealogy/"..genealogyrest
-      if downloaded[genealogyurl] ~= true then
-        table.insert(urls, { url=genealogyurl })
+      if genealogyrest then
+        local genealogyurl = genealogybase.."genealogy/"..genealogyrest
+        if downloaded[genealogyurl] ~= true then
+          table.insert(urls, { url=genealogyurl })
+        end
       end
     elseif string.match(url, "http[s]?://[^%.]+%.genealogy%.com/genealogy/") then
       local genealogybase = string.match(url, "(http[s]?://[^%.]+%.genealogy%.com/)genealogy/")
       local genealogyrest = string.match(url, "http[s]?://[^%.]+%.genealogy%.com/genealogy/(.+)")
-      local genealogyurl = genealogybase..genealogyrest
-      if downloaded[genealogyurl] ~= true then
-        table.insert(urls, { url=genealogyurl })
+      if genealogyrest then
+        local genealogyurl = genealogybase..genealogyrest
+        if downloaded[genealogyurl] ~= true then
+          table.insert(urls, { url=genealogyurl })
+        end
       end
     end
     
@@ -571,16 +575,20 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
     if string.match(url, "http[s]?://familytreemaker%.genealogy%.com/users/") then
       local genealogybase = string.match(url, "(http[s]?://familytreemaker%.genealogy%.com/)users/")
       local genealogyrest = string.match(url, "http[s]?://familytreemaker%.genealogy%.com/(users/.+)")
-      local genealogyurl = genealogybase.."genealogy/"..genealogyrest
-      if downloaded[genealogyurl] ~= true then
-        table.insert(urls, { url=genealogyurl })
+      if genealogyrest then
+        local genealogyurl = genealogybase.."genealogy/"..genealogyrest
+        if downloaded[genealogyurl] ~= true then
+          table.insert(urls, { url=genealogyurl })
+        end
       end
     elseif string.match(url, "http[s]?://familytreemaker%.genealogy%.com/genealogy/") then
       local genealogybase = string.match(url, "(http[s]?://familytreemaker%.genealogy%.com/)genealogy/")
       local genealogyrest = string.match(url, "http[s]?://familytreemaker%.genealogy%.com/genealogy/(.+)")
-      local genealogyurl = genealogybase..genealogyrest
-      if downloaded[genealogyurl] ~= true then
-        table.insert(urls, { url=genealogyurl })
+      if genealogyrest then
+        local genealogyurl = genealogybase..genealogyrest
+        if downloaded[genealogyurl] ~= true then
+          table.insert(urls, { url=genealogyurl })
+        end
       end
     end
     
@@ -601,16 +609,20 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
     if string.match(url, "http[s]?://[^%.]+%.familyorigins%.com/users/") then
       local genealogybase = string.match(url, "(http[s]?://[^%.]+%.familyorigins%.com/)users/")
       local genealogyrest = string.match(url, "http[s]?://[^%.]+%.familyorigins%.com/(users/.+)")
-      local genealogyurl = genealogybase.."genealogy/"..genealogyrest
-      if downloaded[genealogyurl] ~= true then
-        table.insert(urls, { url=genealogyurl })
+      if genealogyrest then
+        local genealogyurl = genealogybase.."genealogy/"..genealogyrest
+        if downloaded[genealogyurl] ~= true then
+          table.insert(urls, { url=genealogyurl })
+        end
       end
     elseif string.match(url, "http[s]?://[^%.]+%.familyorigins%.com/genealogy/") then
       local genealogybase = string.match(url, "(http[s]?://[^%.]+%.familyorigins%.com/)genealogy/")
       local genealogyrest = string.match(url, "http[s]?://[^%.]+%.familyorigins%.com/genealogy/(.+)")
-      local genealogyurl = genealogybase..genealogyrest
-      if downloaded[genealogyurl] ~= true then
-        table.insert(urls, { url=genealogyurl })
+      if genealogyrest then
+        local genealogyurl = genealogybase..genealogyrest
+        if downloaded[genealogyurl] ~= true then
+          table.insert(urls, { url=genealogyurl })
+        end
       end
     end
     
@@ -630,15 +642,19 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   elseif item_type == "genforum" then
     if string.match(url, "http[s]?://genforum%.genealogy%.com/[^/]+/") then
       local genealogyrest = string.match(url, "http[s]?://genforum%.genealogy%.com/([^/]+/.+)")
-      local genealogyurl = "http://genforum.com/"..genealogyrest
-      if downloaded[genealogyurl] ~= true then
-        table.insert(urls, { url=genealogyurl })
+      if genealogyrest then
+        local genealogyurl = "http://genforum.com/"..genealogyrest
+        if downloaded[genealogyurl] ~= true then
+          table.insert(urls, { url=genealogyurl })
+        end
       end
     elseif string.match(url, "http[s]?://genforum%.com/[^/]+/") then
       local genealogyrest = string.match(url, "http[s]?://genforum%.com/([^/]+/.+)")
-      local genealogyurl = "http://genforum.genealogy.com/"..genealogyrest
-      if downloaded[genealogyurl] ~= true then
-        table.insert(urls, { url=genealogyurl })
+      if genealogyrest then
+        local genealogyurl = "http://genforum.genealogy.com/"..genealogyrest
+        if downloaded[genealogyurl] ~= true then
+          table.insert(urls, { url=genealogyurl })
+        end
       end
     end
     
