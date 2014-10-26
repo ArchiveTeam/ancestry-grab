@@ -521,9 +521,9 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
     for customurlnf in string.gmatch(html, '"(/[^"]+)"') do
       if item_type == "genealogy" then
         local baseurl = "http://www.genealogy.com"
-      elseif item_type == "familytreemaker" then
+      elseif item_type = "familytreemaker" then
         local baseurl = "http://familytreemaker.genealogy.com"
-      elseif item_type == "familyorigins" then
+      elseif item_type = "familyorigins" then
         local baseurl = "http://www.familyorigins.com"
       end
       if baseurl then
