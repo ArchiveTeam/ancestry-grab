@@ -57,7 +57,7 @@ if not WGET_LUA:
 #
 # Update this each time you make a non-cosmetic change.
 # It will be added to the WARC files and reported to the tracker.
-VERSION = "20141026.06"
+VERSION = "20141026.07"
 USER_AGENT = 'ArchiveTeam'
 TRACKER_ID = 'ancestry'
 TRACKER_HOST = 'tracker.archiveteam.org'
