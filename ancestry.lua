@@ -180,8 +180,12 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
         url_third_url ~= url_third or
         url_name_url ~= url_name then
         return false
-      else
-        return verdict
+      elseif url_kind_url == url_kind and
+        url_first_url == url_first and
+        url_second_url == url_second and
+        url_third_url == url_third and
+        url_name_url == url_name then
+        return true
       end
     elseif (string.match(url, "%.genealogy%.com") or string.match(url, "%.familyorigins%.com"))
       and html == 1 then
@@ -197,8 +201,12 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
         url_third_url ~= url_third or
         url_name_url ~= url_name then
         return false
-      else
-        return verdict
+      elseif url_kind_url == url_kind and
+        url_first_url == url_first and
+        url_second_url == url_second and
+        url_third_url == url_third and
+        url_name_url == url_name then
+        return true
       end
     elseif html == 0 then
       return true
