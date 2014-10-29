@@ -197,176 +197,11 @@ class WgetArgs(object):
         item['item_type'] = item_type
         item['item_value'] = item_value
         
-        assert item_type in ("mundiasurnames", "genealogy", "familytreemaker", "familyorigins", "genforum", "myfamily", "genealogysite", "myfamilygroup")
+        assert item_type in ("genforum")
         
-        if item_type == 'mundiasurnames':
-            assert ':' in item_value
-            item_lang, item_surname = item_value.split(':', 1)
-            assert item_lang
-            assert item_surname
-            item['item_lang'] = item_lang
-            item['item_surname'] = item_surname
-            wget_args.append('http://www.mundia.com/{0}/surnames/{1}'.format(item_lang, item_surname))
-            wget_args.extend(["--load-cookies", "cookies.txt"])
-            
-            url_kind = "a"
-            url_first = "b"
-            url_second = "c"
-            url_third = "d"
-            url_name = "e"
-            assert url_kind
-            assert url_first
-            assert url_second
-            assert url_third
-            assert url_name
-            item['url_kind'] = url_kind
-            item['url_first'] = url_first
-            item['url_second'] = url_second
-            item['url_third'] = url_third
-            item['url_name'] = url_name
-        elif item_type == "genealogy":
-            if "users" in item_value:
-                assert ':' in item_name
-                url_kind, url_first, url_second, url_third, url_name = item_value.split(":")
-                assert url_kind
-                assert url_first
-                assert url_second
-                assert url_third
-                assert url_name
-                item['url_kind'] = url_kind
-                item['url_first'] = url_first
-                item['url_second'] = url_second
-                item['url_third'] = url_third
-                item['url_name'] = url_name
-                wget_args.append('http://www.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
-                wget_args.append('http://www.genealogy.com/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
-                wget_args.append('http://www.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
-                wget_args.append('http://www.genealogy.com/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
-                wget_args.extend(["--no-cookies"])
-            else:
-                raise Exception('Unknown item')
-        elif item_type == "familytreemaker":
-            if "users" in item_value:
-                assert ':' in item_name
-                url_kind, url_first, url_second, url_third, url_name = item_value.split(":")
-                assert url_kind
-                assert url_first
-                assert url_second
-                assert url_third
-                assert url_name
-                item['url_kind'] = url_kind
-                item['url_first'] = url_first
-                item['url_second'] = url_second
-                item['url_third'] = url_third
-                item['url_name'] = url_name
-                wget_args.append('http://familytreemaker.genealogy.com/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
-                wget_args.append('http://familytreemaker.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
-                wget_args.append('http://familytreemaker.genealogy.com/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
-                wget_args.append('http://familytreemaker.genealogy.com/genealogy/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
-                wget_args.extend(["--no-cookies"])
-            else:
-                raise Exception('Unknown item')
-        elif item_type == "familyorigins":
-            if "users" in item_value:
-                assert ':' in item_name
-                url_kind, url_first, url_second, url_third, url_name = item_value.split(":")
-                assert url_kind
-                assert url_first
-                assert url_second
-                assert url_third
-                assert url_name
-                item['url_kind'] = url_kind
-                item['url_first'] = url_first
-                item['url_second'] = url_second
-                item['url_third'] = url_third
-                item['url_name'] = url_name
-                wget_args.append('http://www.familyorigins.com/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
-                wget_args.append('http://www.familyorigins.com/genealogy/{0}/{1}/{2}/{3}/{4}/'.format(url_kind, url_first, url_second, url_third, url_name))
-                wget_args.append('http://www.familyorigins.com/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
-                wget_args.append('http://www.familyorigins.com/genealogy/{0}/{1}/{2}/{3}/{4}/index.html'.format(url_kind, url_first, url_second, url_third, url_name))
-                wget_args.extend(["--no-cookies"])
-            else:
-                raise Exception('Unknown item')
-        elif item_type == "genforum":
+        if item_type == "genforum":
             wget_args.append('http://genforum.genealogy.com/{0}/'.format(item_value))
             wget_args.append('http://genforum.com/{0}/'.format(item_value))
-            wget_args.extend(["--no-cookies"])
-        elif item_type == "myfamily":
-            wget_args.extend(["--no-cookies"])
-            
-            suffixesa = string.digits
-            suffixesb = string.digits
-            
-            for args in [('http://www.myfamily.com/user/{0}{1}{2}'.format(item_value, a, b), \
-                          'http://www.myfamily.com/blog/{0}{1}{2}'.format(item_value, a, b), \
-                          'http://www.myfamily.com/blog/{0}{1}{2}?start=0'.format(item_value, a, b)) for a in suffixesa for b in suffixesb]:
-                wget_args.append(args[0])
-                wget_args.append(args[1])
-                wget_args.append(args[2])
-                
-                url_kind = "a"
-                url_first = "b"
-                url_second = "c"
-                url_third = "d"
-                url_name = "e"
-                assert url_kind
-                assert url_first
-                assert url_second
-                assert url_third
-                assert url_name
-                item['url_kind'] = url_kind
-                item['url_first'] = url_first
-                item['url_second'] = url_second
-                item['url_third'] = url_third
-                item['url_name'] = url_name
-                
-        elif item_type == "myfamilygroup":
-            wget_args.extend(["--load-cookies", "cookies.txt"])
-            
-            suffixesa = string.digits
-            suffixesb = string.digits
-            
-            for args in [('http://www.myfamily.com/user/{0}{1}{2}0'.format(item_value, a, b), \
-                          'http://www.myfamily.com/user/{0}{1}{2}1'.format(item_value, a, b), \
-                          'http://www.myfamily.com/user/{0}{1}{2}2'.format(item_value, a, b), \
-                          'http://www.myfamily.com/user/{0}{1}{2}3'.format(item_value, a, b), \
-                          'http://www.myfamily.com/user/{0}{1}{2}4'.format(item_value, a, b), \
-                          'http://www.myfamily.com/user/{0}{1}{2}5'.format(item_value, a, b), \
-                          'http://www.myfamily.com/user/{0}{1}{2}6'.format(item_value, a, b), \
-                          'http://www.myfamily.com/user/{0}{1}{2}7'.format(item_value, a, b), \
-                          'http://www.myfamily.com/user/{0}{1}{2}8'.format(item_value, a, b), \
-                          'http://www.myfamily.com/user/{0}{1}{2}9'.format(item_value, a, b)) for a in suffixesa for b in suffixesb]:
-                wget_args.append(args[0])
-                wget_args.append(args[1])
-                wget_args.append(args[2])
-                wget_args.append(args[3])
-                wget_args.append(args[4])
-                wget_args.append(args[5])
-                wget_args.append(args[6])
-                wget_args.append(args[7])
-                wget_args.append(args[8])
-                wget_args.append(args[9])
-                
-                url_kind = "a"
-                url_first = "b"
-                url_second = "c"
-                url_third = "d"
-                url_name = "e"
-                assert url_kind
-                assert url_first
-                assert url_second
-                assert url_third
-                assert url_name
-                item['url_kind'] = url_kind
-                item['url_first'] = url_first
-                item['url_second'] = url_second
-                item['url_third'] = url_third
-                item['url_name'] = url_name
-            
-        elif item_type == "genealogysite":
-            wget_args.append('http://www.familyorigins.com/')
-            wget_args.append('http://www.genealogy.com/')
-            wget_args.append('http://familytreemaker.genealogy.com/')
             wget_args.extend(["--no-cookies"])
         else:
             raise Exception('Unknown item')
@@ -391,8 +226,7 @@ project = Project(
         <img class="project-logo" alt="Project logo" src="http://archiveteam.org/images/d/de/Ancestry_Logo.jpg" height="50px" title=""/>
         <h2>www.ancestry.com <span class="links"><a href="http://www.ancestry.com/">Website</a> &middot; <a href="http://tracker.archiveteam.org/ancestry/">Leaderboard</a></span></h2>
         <p>Archiving websites shutdown by ancestry.com.</p>
-    """,
-    utc_deadline=datetime.datetime(2014, 9, 30, 23, 59, 0)
+    """
 )
 
 pipeline = Pipeline(
@@ -403,16 +237,11 @@ pipeline = Pipeline(
     WgetDownload(
         WgetArgs(),
         max_tries=2,
-        accept_on_exit_code=[0, 4, 8],
+        accept_on_exit_code=[0, 8],
         env={
             "item_dir": ItemValue("item_dir"),
             "item_value": ItemValue("item_value"),
             "item_type": ItemValue("item_type"),
-            "url_name": ItemValue("url_name"),
-            "url_kind": ItemValue("url_kind"),
-            "url_first": ItemValue("url_first"),
-            "url_second": ItemValue("url_second"),
-            "url_third": ItemValue("url_third"),
         }
     ),
     PrepareStatsForTracker(
