@@ -8,6 +8,7 @@ local item_type = os.getenv('item_type')
 local item_value = os.getenv('item_value')
 
 local downloaded = {}
+local addedtolist = {}
 
 load_json_file = function(file)
   if file then
@@ -37,11 +38,11 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   local parenturl = parent["url"]
   local html = nil
   
-  if downloaded[url] == true then
+  if downloaded[url] == true or addedtolist[url] == true then
     return false
   end
   
-  if (item_type == "genforum" and downloaded[url] ~= true) then
+  if (item_type == "genforum" and (downloaded[url] ~= true or addedtolist[url] ~= true)) then
     if string.match(url, "%?"..item_value)
       or string.match(url, "="..item_value)
       or string.match(url, "%."..item_value)
@@ -61,6 +62,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       or html == 0 
       or string.match(url, "service%.ancestry%.com") then
       return true
+    else
+      return false
     end
   end
   
@@ -74,14 +77,16 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   if item_type == "genforum" then
     if string.match(url, "http[s]?://genforum%.genealogy%.com/") then
       local newurl = string.gsub(url, "http[s]?://genforum%.genealogy%.com/", "http://genforum%.com/")
-      if downloaded[newurl] ~= true then
+      if downloaded[newurl] ~= true or addedtolist[newurl] ~= true then
         table.insert(urls, { url=newurl })
+        addedtolist[newurl] = true
       end
     end
     if string.match(url, "http[s]?://genforum%.com/") then
       local newurl = string.gsub(url, "http[s]?://genforum%.com/", "http://genforum%.genealogy%.com/")
-      if downloaded[newurl] ~= true then
+      if downloaded[newurl] ~= true or addedtolist[newurl] ~= true then
         table.insert(urls, { url=newurl })
+        addedtolist[newurl] = true
       end
     end
     
@@ -108,8 +113,9 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           or string.match(customurl, "service%.ancestry%.com") then
           if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
             or not string.match(url, ":::") then
-            if downloaded[customurl] ~= true then
+            if downloaded[customurl] ~= true or addedtolist[customurl] ~= true then
               table.insert(urls, { url=customurl })
+            addedtolist[customurl] = true
             end
           end
         end
@@ -134,8 +140,9 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           local customurl = base..customurlnf
           if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
             or not string.match(url, ":::") then
-            if downloaded[customurl] ~= true then
+            if downloaded[customurl] ~= true or addedtolist[customurl] ~= true then
               table.insert(urls, { url=customurl })
+            addedtolist[customurl] = true
             end
           end
         end
@@ -145,8 +152,9 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         local customurl = base..customurlnf
         if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
           or not string.match(url, ":::") then
-          if downloaded[customurl] ~= true then
+          if downloaded[customurl] ~= true or addedtolist[customurl] ~= true then
             table.insert(urls, { url=customurl })
+            addedtolist[customurl] = true
           end
         end
       end
