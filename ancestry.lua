@@ -60,7 +60,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       or string.match(url, "%.js")
       or html == 0 
       or string.match(url, "service%.ancestry%.com") then
-      return verdict
+      return true
     else
       return false
     end
