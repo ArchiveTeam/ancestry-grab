@@ -37,9 +37,11 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   local parenturl = parent["url"]
   local html = nil
   
-  if (item_type == "genforum" and downloaded[url] == true) then
+  if downloaded[url] == true then
     return false
-  elseif (item_type == "genforum" and downloaded[url] ~= true) then
+  end
+  
+  if item_type == "genforum" then
     if string.match(url, "[^0-9a-zA-Z]"..item_value)
       or string.match(url, "/3/")
       or string.match(url, "/images/") 
@@ -55,7 +57,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       or string.match(url, "%.js")
       or html == 0 
       or string.match(url, "service%.ancestry%.com") then
-      return true
+      return verdict
     else
       return false
     end
@@ -144,7 +146,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
 --          end
         end
       end
-      for customurlnf in string.gmatch(html, '"=([^"]+)"') do
+      for customurlnf in string.gmatch(html, '="([^"]+)"') do
         if string.match(customurlnf, "[^0-9a-zA-Z]"..item_value)
           or string.match(customurlnf, "3/")
           or string.match(customurlnf, "images/") 
