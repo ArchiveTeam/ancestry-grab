@@ -96,9 +96,9 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   local parenturl = parent["url"]
   local html = nil
   
-  if downloaded[url] == true then
+  if (item_type == "genforum" and downloaded[url] == true) then
     return false
-  elseif item_type == "genforum" then
+  elseif (item_type == "genforum" and downloaded[url] ~= true) then
     if string.match(url, "[^0-9a-zA-Z]"..item_value)
       or string.match(url, "/3/")
       or string.match(url, "/images/") 
