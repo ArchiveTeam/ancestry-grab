@@ -96,7 +96,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
     if string.match(url, "[^0-9a-zA-Z]"..item_value) then
       html = read_file(html)
       if (string.match(url, ":::") and string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) then
-        dubbledownloaded == 1
+        dubbledownloaded = 1
       end
     end
   end
