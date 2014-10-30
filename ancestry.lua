@@ -131,13 +131,13 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   
   if item_type == "genforum" then
     if string.match(url, "http[s]?://genforum%.genealogy%.com/") then
-      local newurl = string.gsub(url, "http[s]?://genforum%.genealogy%.com/", "http[s]?://genforum%.com/")
+      local newurl = string.gsub(url, "http[s]?://genforum%.genealogy%.com/", "http://genforum%.com/")
       if downloaded[newurl] ~= true then
         table.insert(urls, { url=newurl })
       end
     end
     if string.match(url, "http[s]?://genforum%.com/") then
-      local newurl = string.gsub(url, "http[s]?://genforum%.com/", "http[s]?://genforum%.genealogy%.com/")
+      local newurl = string.gsub(url, "http[s]?://genforum%.com/", "http://genforum%.genealogy%.com/")
       if downloaded[newurl] ~= true then
         table.insert(urls, { url=newurl })
       end
