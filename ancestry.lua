@@ -42,7 +42,10 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   end
   
   if item_type == "genforum" then
-    if string.match(url, "[^0-9a-zA-Z]"..item_value)
+    if string.match(url, "%?"..item_value)
+      or string.match(url, "="..item_value)
+      or string.match(url, "%."..item_value)
+      or string.match(url, "/"..item_value)
       or string.match(url, "/3/")
       or string.match(url, "/images/") 
       or string.match(url, "/javascript/") 
@@ -88,7 +91,10 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       html = read_file(html)
       
       for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
-        if string.match(customurl, "[^0-9a-zA-Z]"..item_value)
+        if string.match(customurl, "%?"..item_value)
+          or string.match(customurl, "="..item_value)
+          or string.match(customurl, "%."..item_value)
+          or string.match(customurl, "/"..item_value)
           or string.match(customurl, "/3/")
           or string.match(customurl, "/images/") 
           or string.match(customurl, "/javascript/") 
@@ -111,7 +117,10 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         end
       end
       for customurlnf in string.gmatch(html, '"(/[^"]+)"') do
-        if string.match(customurlnf, "[^0-9a-zA-Z]"..item_value)
+        if string.match(customurlnf, "%?"..item_value)
+          or string.match(customurlnf, "="..item_value)
+          or string.match(customurlnf, "%."..item_value)
+          or string.match(customurlnf, "/"..item_value)
           or string.match(customurlnf, "/3/")
           or string.match(customurlnf, "/images/") 
           or string.match(customurlnf, "/javascript/")
@@ -123,63 +132,24 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           or string.match(customurlnf, "%.jpeg") 
           or string.match(customurlnf, "%.css")
           or string.match(customurlnf, "%.js") then
-          if string.match(url, "http[s]?://genforum%.genealogy%.com/") then
-            local base = "http://genforum.genealogy.com"
-            local customurl = base..customurlnf
-            if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
-              or not string.match(url, ":::") then
-              if downloaded[customurl] ~= true then
-                table.insert(urls, { url=customurl })
-              end
-            end
-          elseif string.match(url, "http[s]?://genforum%.com/") then
-            local base = "http://genforum.com"
-            local customurl = base..customurlnf
-            if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
-              or not string.match(url, ":::") then
-              if downloaded[customurl] ~= true then
-                table.insert(urls, { url=customurl })
-              end
+          local base = string.match(url, "http[s]?://[^/]+")
+          local customurl = base..customurlnf
+          if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
+            or not string.match(url, ":::") then
+            if downloaded[customurl] ~= true then
+              table.insert(urls, { url=customurl })
             end
           end
---          if base then
---          end
         end
       end
       for customurlnf in string.gmatch(html, '="([^"]+)"') do
-        if string.match(customurlnf, "[^0-9a-zA-Z]"..item_value)
-          or string.match(customurlnf, "3/")
-          or string.match(customurlnf, "images/") 
-          or string.match(customurlnf, "javascript/")
-          or string.match(customurlnf, "email%.cgi") 
-          or string.match(customurlnf, "picture%.cgi") 
-          or string.match(customurlnf, "%.jpg")
-          or string.match(customurlnf, "%.gif")
-          or string.match(customurlnf, "%.png")
-          or string.match(customurlnf, "%.jpeg") 
-          or string.match(customurlnf, "%.css")
-          or string.match(customurlnf, "%.js") then
-          if string.match(url, "http[s]?://genforum%.genealogy%.com/") then
-            local base = "http://genforum.genealogy.com/"
-            local customurl = base..customurlnf
-            if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
-              or not string.match(url, ":::") then
-              if downloaded[customurl] ~= true then
-                table.insert(urls, { url=customurl })
-              end
-            end
-          elseif string.match(url, "http[s]?://genforum%.com/") then
-            local base = "http://genforum.com/"
-            local customurl = base..customurlnf
-            if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
-              or not string.match(url, ":::") then
-              if downloaded[customurl] ~= true then
-                table.insert(urls, { url=customurl })
-              end
-            end
+        local base = string.match(url, "http[s]?://.+/")
+        local customurl = base..customurlnf
+        if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
+          or not string.match(url, ":::") then
+          if downloaded[customurl] ~= true then
+            table.insert(urls, { url=customurl })
           end
---          if base then
---          end
         end
       end
     end
