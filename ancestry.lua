@@ -41,7 +41,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
     return false
   end
   
-  if item_type == "genforum" then
+  if (item_type == "genforum" and downloaded[url] ~= true) then
     if string.match(url, "%?"..item_value)
       or string.match(url, "="..item_value)
       or string.match(url, "%."..item_value)
