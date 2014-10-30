@@ -40,7 +40,8 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   local parenturl = parent["url"]
   local html = nil
   
-  if downloaded[url] == true or addedtolist[url] == true then
+  if downloaded[url] == true
+    or addedtolist[url] == true then
     io.stdout:write("already downloaded "..url.."\n")
     io.stdout:flush()
     return false
