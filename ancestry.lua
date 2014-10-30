@@ -41,9 +41,9 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   local html = nil
   
   if downloaded[url] == true or addedtolist[url] == true then
-    return false
     io.stdout:write("already downloaded "..url.."\n")
     io.stdout:flush()
+    return false
   end
   
   if (item_type == "genforum" and (downloaded[url] ~= true or addedtolist[url] ~= true)) then
