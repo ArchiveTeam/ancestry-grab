@@ -77,14 +77,14 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   if item_type == "genforum" then
     if string.match(url, "http[s]?://genforum%.genealogy%.com/") then
       local newurl = string.gsub(url, "http[s]?://genforum%.genealogy%.com/", "http://genforum%.com/")
-      if downloaded[newurl] ~= true or addedtolist[newurl] ~= true then
+      if (downloaded[newurl] ~= true and addedtolist[newurl] ~= true) then
         table.insert(urls, { url=newurl })
         addedtolist[newurl] = true
       end
     end
     if string.match(url, "http[s]?://genforum%.com/") then
       local newurl = string.gsub(url, "http[s]?://genforum%.com/", "http://genforum%.genealogy%.com/")
-      if downloaded[newurl] ~= true or addedtolist[newurl] ~= true then
+      if (downloaded[newurl] ~= true and addedtolist[newurl] ~= true) then
         table.insert(urls, { url=newurl })
         addedtolist[newurl] = true
       end
@@ -113,9 +113,9 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           or string.match(customurl, "service%.ancestry%.com") then
           if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
             or not string.match(url, ":::") then
-            if downloaded[customurl] ~= true or addedtolist[customurl] ~= true then
+            if (downloaded[customurl] ~= true and addedtolist[customurl] ~= true) then
               table.insert(urls, { url=customurl })
-            addedtolist[customurl] = true
+              addedtolist[customurl] = true
             end
           end
         end
@@ -140,9 +140,9 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           local customurl = base..customurlnf
           if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
             or not string.match(url, ":::") then
-            if downloaded[customurl] ~= true or addedtolist[customurl] ~= true then
+            if (downloaded[customurl] ~= true and addedtolist[customurl] ~= true) then
               table.insert(urls, { url=customurl })
-            addedtolist[customurl] = true
+              addedtolist[customurl] = true
             end
           end
         end
@@ -152,7 +152,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         local customurl = base..customurlnf
         if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
           or not string.match(url, ":::") then
-          if downloaded[customurl] ~= true or addedtolist[customurl] ~= true then
+          if (downloaded[customurl] ~= true and addedtolist[customurl] ~= true) then
             table.insert(urls, { url=customurl })
             addedtolist[customurl] = true
           end
