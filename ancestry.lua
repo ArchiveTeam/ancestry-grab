@@ -171,8 +171,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         if string.match(customurlnf, "[^0-9a-zA-Z]"..item_value)
           or string.match(customurlnf, "/3/")
           or string.match(customurlnf, "/images/") 
-          or string.match(customurlnf, "/javascript/") 
-          or string.match(customurlnf, "gco%.[0-9]+%.[0-9a-zA-Z]+%.net") 
+          or string.match(customurlnf, "/javascript/")
           or string.match(customurlnf, "email%.cgi") 
           or string.match(customurlnf, "picture%.cgi") 
           or string.match(customurlnf, "%.jpg")
@@ -180,14 +179,18 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           or string.match(customurlnf, "%.png")
           or string.match(customurlnf, "%.jpeg") 
           or string.match(customurlnf, "%.css")
-          or string.match(customurlnf, "%.js")
-          or string.match(customurlnf, "service%.ancestry%.com") then
+          or string.match(customurlnf, "%.js") then
           if string.match(url, "http[s]?://genforum%.genealogy%.com/") then
             local base = "http://genforum.genealogy.com"
+            local customurl = base..customurlnf
+            if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
+              or not string.match(url, ":::") then
+              if downloaded[customurl] ~= true then
+                table.insert(urls, { url=customurl })
+              end
+            end
           elseif string.match(url, "http[s]?://genforum%.com/") then
             local base = "http://genforum.com"
-          end
-          if base then
             local customurl = base..customurlnf
             if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
               or not string.match(url, ":::") then
@@ -196,6 +199,8 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
               end
             end
           end
+--          if base then
+--          end
         end
       end
     end
