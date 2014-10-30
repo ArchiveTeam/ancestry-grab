@@ -185,7 +185,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           if string.match(url, "http[s]?://genforum%.genealogy%.com/") then
             local base = "http://genforum.genealogy.com"
           elseif string.match(url, "http[s]?://genforum%.com/") then
-            local base = "http://genforum.com/"
+            local base = "http://genforum.com"
           end
           if base then
             local customurl = base..customurlnf
