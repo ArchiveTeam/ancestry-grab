@@ -92,7 +92,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       end
     end
     
-    if string.match(url, "[^0-9a-zA-Z]"..item_value) then
+    if string.match(url, item_value) then
       html = read_file(html)
       
       for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
@@ -117,8 +117,6 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
             or not string.match(url, ":::") then
             if (downloaded[customurl] ~= true and addedtolist[customurl] ~= true) then
               table.insert(urls, { url=customurl })
-  io.stdout:write(customurl.."  \n")
-  io.stdout:flush()
               addedtolist[customurl] = true
             end
           end
@@ -146,8 +144,6 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
             or not string.match(url, ":::") then
             if (downloaded[customurl] ~= true and addedtolist[customurl] ~= true) then
               table.insert(urls, { url=customurl })
-  io.stdout:write(customurl.."  \n")
-  io.stdout:flush()
               addedtolist[customurl] = true
             end
           end
@@ -160,8 +156,6 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           or not string.match(url, ":::") then
           if (downloaded[customurl] ~= true and addedtolist[customurl] ~= true) then
             table.insert(urls, { url=customurl })
-  io.stdout:write(customurl.."  \n")
-  io.stdout:flush()
             addedtolist[customurl] = true
           end
         end
