@@ -61,8 +61,6 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       or html == 0 
       or string.match(url, "service%.ancestry%.com") then
       return true
-    else
-      return false
     end
   end
   
