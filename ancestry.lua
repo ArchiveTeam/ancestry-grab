@@ -117,6 +117,8 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
             or not string.match(url, ":::") then
             if (downloaded[customurl] ~= true and addedtolist[customurl] ~= true) then
               table.insert(urls, { url=customurl })
+  io.stdout:write(customurl.."  \n")
+  io.stdout:flush()
               addedtolist[customurl] = true
             end
           end
@@ -144,6 +146,8 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
             or not string.match(url, ":::") then
             if (downloaded[customurl] ~= true and addedtolist[customurl] ~= true) then
               table.insert(urls, { url=customurl })
+  io.stdout:write(customurl.."  \n")
+  io.stdout:flush()
               addedtolist[customurl] = true
             end
           end
@@ -156,6 +160,8 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           or not string.match(url, ":::") then
           if (downloaded[customurl] ~= true and addedtolist[customurl] ~= true) then
             table.insert(urls, { url=customurl })
+  io.stdout:write(customurl.."  \n")
+  io.stdout:flush()
             addedtolist[customurl] = true
           end
         end
