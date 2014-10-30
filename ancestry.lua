@@ -68,7 +68,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       or string.match(url, "service%.ancestry%.com") then
       io.stdout:write("running "..url.."\n")
       io.stdout:flush()
-      return true
+      return verdict
     else
       io.stdout:write("stopping "..url.."\n")
       io.stdout:flush()
