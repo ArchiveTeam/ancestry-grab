@@ -9,65 +9,6 @@ local item_value = os.getenv('item_value')
 
 local downloaded = {}
 
-downloaded["http://c.muncn.com/images/ico/facebook.gif"] = true
-downloaded["http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2&mkt=en-US"] = true
-downloaded["http://c.muncn.com/scripts/merged/shared/mapservercontrol.js"] = true
-downloaded["http://c.muncn.com/scripts/merged/surname/index.js"] = true
-downloaded["http://c.muncn.com/style/contacts/facebookfriendpicker.css"] = true
-downloaded["http://c.muncn.com/scripts/merged/contacts/facebookfriendpicker.js"] = true
-downloaded["http://c.muncn.com/style/surname/index.css"] = true
-downloaded["http://c.muncn.com/scripts/merged/shared/core.js"] = true
-downloaded["http://c.muncn.com/scripts/mbox.js"] = true
-downloaded["http://c.muncn.com/style/lt7.css"] = true
-downloaded["http://c.muncn.com/style/shared/_RolesHintControl.css"] = true
-downloaded["http://c.muncn.com/style/form.css"] = true
-downloaded["http://c.muncn.com/style/site.css"] = true
-downloaded["http://c.muncn.com/images/errors/error_ico.png"] = true
-downloaded["http://c.muncn.com/images/circle_green_clockwise.gif"] = true
-downloaded["http://c.muncn.com/scripts/merged/search/results.js"] = true
-downloaded["http://c.muncn.com/style/search/resultselection.css"] = true
-downloaded["http://c.muncn.com/style/search/results.css"] = true
-downloaded["http://ecn.dev.virtualearth.net/mapcontrol/v6.3"] = true
-downloaded["http://ecn.dev.virtualearth.net/mapcontrol/v6.3/"] = true
-downloaded["http://www.mundia.com/images/circle_green_clockwise.gif"] = true
-downloaded["http://c.muncn.com/images/tree-create-bg.png"] = true
-downloaded["http://www.mundia.com/images/btn-sub-right.png"] = true
-downloaded["http://www.mundia.com/images/btn-sub-left.png"] = true
-downloaded["http://www.mundia.com/images/photoimport/fblogo.gif"] = true
-downloaded["http://www.mundia.com/images/fotolog-full-logo.png"] = true
-downloaded["http://www.mundia.com/images/photoimport/checkbox.png"] = true
-downloaded["http://www.mundia.com/images/photoimport/main-photo-image-selected.png"] = true
-downloaded["http://www.mundia.com/images/bg-main-info-image.gif"] = true
-downloaded["http://c.muncn.com/images/ico/lessThanAvg.png"] = true
-downloaded["http://c.muncn.com/images/personicon-f.gif"] = true
-downloaded["http://www.mundia.com/Error?aspxerrorpath=/ar/images/circle_green_clockwise.gif"] = true
-downloaded["http://www.mundia.com/Error?aspxerrorpath=/ar/images/btn-sub-right.png"] = true
-downloaded["http://www.mundia.com/Error?aspxerrorpath=/ar/images/btn-sub-left.png"] = true
-downloaded["http://www.mundia.com/Error?aspxerrorpath=/ar/images/photoimport/fblogo.gif"] = true
-downloaded["http://www.mundia.com/Error?aspxerrorpath=/ar/images/fotolog-full-logo.png"] = true
-downloaded["http://www.mundia.com/Error?aspxerrorpath=/ar/images/photoimport/checkbox.png"] = true
-downloaded["http://www.mundia.com/Error?aspxerrorpath=/ar/images/photoimport/main-photo-image-selected.png"] = true
-downloaded["http://www.mundia.com/Error?aspxerrorpath=/ar/images/bg-main-info-image.gif"] = true
-downloaded["http://c.muncn.com/scripts/merged/shared/fancyupload.js"] = true
-downloaded["http://c.muncn.com/scripts/merged/person/index.js"] = true
-downloaded["http://c.muncn.com/scripts/merged/media/bulkeditdialog.js"] = true
-downloaded["http://c.muncn.com/images/pedigree-loading.gif"] = true
-downloaded["http://c.muncn.com/images/profilepic_female.gif"] = true
-downloaded["http://c.muncn.com/images/white.gif"] = true
-downloaded["http://c.muncn.com/images/ico/invite.png"] = true
-downloaded["http://c.muncn.com/style/media/bulkedit.css"] = true
-downloaded["http://c.muncn.com/style/fancyupload/fancyupload.css"] = true
-downloaded["http://c.muncn.com/style/contacts/import.css"] = true
-downloaded["http://c.muncn.com/style/invitation/invite.css"] = true
-downloaded["http://c.muncn.com/style/contactuser.css"] = true
-downloaded["http://c.muncn.com/style/gallery/index.css"] = true
-downloaded["http://c.muncn.com/style/tree/editperson.css"] = true
-downloaded["http://c.muncn.com/style/person/index.css"] = true
-downloaded["http://c.muncn.com/images/personicon-m.gif"] = true
-downloaded["http://c.muncn.com/images/profilepic_male.gif"] = true
-downloaded["http://c.muncn.com/style/person/restricted.css"] = true
-downloaded["http://c.muncn.com/images/ico/greaterThanAvg.png"] = true
-
 load_json_file = function(file)
   if file then
     local f = io.open(file)
@@ -159,12 +100,12 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           or string.match(customurl, "%.css")
           or string.match(customurl, "%.js")
           or string.match(customurl, "service%.ancestry%.com") then
-          if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
-            or not string.match(url, ":::") then
+--          if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
+--            or not string.match(url, ":::") then
             if downloaded[customurl] ~= true then
               table.insert(urls, { url=customurl })
             end
-          end
+--          end
         end
       end
       for customurlnf in string.gmatch(html, '"(/[^"]+)"') do
@@ -183,21 +124,21 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           if string.match(url, "http[s]?://genforum%.genealogy%.com/") then
             local base = "http://genforum.genealogy.com"
             local customurl = base..customurlnf
-            if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
-              or not string.match(url, ":::") then
+--            if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
+--              or not string.match(url, ":::") then
               if downloaded[customurl] ~= true then
                 table.insert(urls, { url=customurl })
               end
-            end
+--            end
           elseif string.match(url, "http[s]?://genforum%.com/") then
             local base = "http://genforum.com"
             local customurl = base..customurlnf
-            if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
-              or not string.match(url, ":::") then
+--            if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
+--              or not string.match(url, ":::") then
               if downloaded[customurl] ~= true then
                 table.insert(urls, { url=customurl })
               end
-            end
+--            end
           end
 --          if base then
 --          end
