@@ -173,7 +173,7 @@ class WgetArgs(object):
             "--truncate-output",
             "-e", "robots=off",
             "--rotate-dns",
-#            "--recursive", "--level=inf",
+            "--recursive", "--level=inf",
             "--no-parent",
             "--page-requisites",
             "--timeout", "30",
