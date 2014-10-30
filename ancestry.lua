@@ -101,7 +101,21 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   end
   
   if item_type == "genforum" then
-    if string.match(url, "[^0-9a-zA-Z]"..item_value.."[^0-9a-zA-Z]") then
+    if string.match(url, "[^0-9a-zA-Z]"..item_value)
+      or string.match(url, "/3/")
+      or string.match(url, "/images/") 
+      or string.match(url, "/javascript/") 
+      or string.match(url, "gco%.[0-9]+%.[0-9a-zA-Z]+%.net") 
+      or string.match(url, "email%.cgi") 
+      or string.match(url, "picture%.cgi") 
+      or string.match(url, "%.jpg")
+      or string.match(url, "%.gif")
+      or string.match(url, "%.png")
+      or string.match(url, "%.jpeg") 
+      or string.match(url, "%.css")
+      or string.match(url, "%.js")
+      or html == 0 
+      or string.match(url, "service%.ancestry%.com") then
       return true
     else
       return false
@@ -129,18 +143,47 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
       end
     end
     
-    if string.match(url, "[^0-9a-zA-Z]"..item_value.."[^0-9a-zA-Z]") then
+    if string.match(url, "[^0-9a-zA-Z]"..item_value) then
       html = read_file(html)
       
       for customurl in string.gmatch(html, '"(http[s]?://[^"]+)"') do
-        if string.match(customurl, "[^0-9a-zA-Z]"..item_value.."[^0-9a-zA-Z]") then
-          if downloaded[customurl] ~= true then
-            table.insert(urls, { url=customurl })
+        if string.match(customurl, "[^0-9a-zA-Z]"..item_value)
+          or string.match(customurl, "/3/")
+          or string.match(customurl, "/images/") 
+          or string.match(customurl, "/javascript/") 
+          or string.match(customurl, "gco%.[0-9]+%.[0-9a-zA-Z]+%.net") 
+          or string.match(customurl, "email%.cgi") 
+          or string.match(customurl, "picture%.cgi") 
+          or string.match(customurl, "%.jpg")
+          or string.match(customurl, "%.gif")
+          or string.match(customurl, "%.png")
+          or string.match(customurl, "%.jpeg") 
+          or string.match(customurl, "%.css")
+          or string.match(customurl, "%.js")
+          or string.match(customurl, "service%.ancestry%.com") then
+          if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
+            or not string.match(url, ":::") then
+            if downloaded[customurl] ~= true then
+              table.insert(urls, { url=customurl })
+            end
           end
         end
       end
       for customurlnf in string.gmatch(html, '"(/[^"]+)"') do
-        if string.match(customurlnf, "[^0-9a-zA-Z]"..item_value.."[^0-9a-zA-Z]") then
+        if string.match(customurlnf, "[^0-9a-zA-Z]"..item_value)
+          or string.match(customurlnf, "/3/")
+          or string.match(customurlnf, "/images/") 
+          or string.match(customurlnf, "/javascript/") 
+          or string.match(customurlnf, "gco%.[0-9]+%.[0-9a-zA-Z]+%.net") 
+          or string.match(customurlnf, "email%.cgi") 
+          or string.match(customurlnf, "picture%.cgi") 
+          or string.match(customurlnf, "%.jpg")
+          or string.match(customurlnf, "%.gif")
+          or string.match(customurlnf, "%.png")
+          or string.match(customurlnf, "%.jpeg") 
+          or string.match(customurlnf, "%.css")
+          or string.match(customurlnf, "%.js")
+          or string.match(customurlnf, "service%.ancestry%.com") then
           if string.match(url, "http[s]?://genforum%.genealogy%.com/") then
             local base = "http://genforum.genealogy.com"
           elseif string.match(url, "http[s]?://genforum%.com/") then
@@ -148,8 +191,11 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           end
           if base then
             local customurl = base..customurlnf
-            if downloaded[customurl] ~= true then
-              table.insert(urls, { url=customurl })
+            if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
+              or not string.match(url, ":::") then
+              if downloaded[customurl] ~= true then
+                table.insert(urls, { url=customurl })
+              end
             end
           end
         end
