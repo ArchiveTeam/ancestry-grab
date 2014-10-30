@@ -10,6 +10,8 @@ local item_value = os.getenv('item_value')
 local downloaded = {}
 local addedtolist = {}
 
+downloaded["http://genforum.genealogy.com/javascript/TSpacer_wrapper.js"] = true
+
 load_json_file = function(file)
   if file then
     local f = io.open(file)
@@ -136,7 +138,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
           or string.match(customurlnf, "%.jpeg") 
           or string.match(customurlnf, "%.css")
           or string.match(customurlnf, "%.js") then
-          local base = string.match(url, "http[s]?://[^/]+")
+          local base = string.match(url, "(http[s]?://[^/]+)")
           local customurl = base..customurlnf
           if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
             or not string.match(url, ":::") then
@@ -148,7 +150,7 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
         end
       end
       for customurlnf in string.gmatch(html, '="([^"]+)"') do
-        local base = string.match(url, "http[s]?://.+/")
+        local base = string.match(url, "(http[s]?://.+/)")
         local customurl = base..customurlnf
         if (string.match(url, ":::") and string.match(customurl, ":::") and not string.match(html, '<FONT FACE="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^>]+">[^<]+</A></B></FONT><BR>[^<]+<UL>[^<]+</UL>[^<]+<font face="[^"]+"><B><A HREF="[^"]+">[^<]+</A>[^<]+<A HREF="[^"]+">[^<]+</A></B></font><BR>')) 
           or not string.match(url, ":::") then
