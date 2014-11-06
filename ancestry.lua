@@ -46,7 +46,7 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
   end
   
   if (item_type == "genforum" and (downloaded[url] ~= true or addedtolist[url] ~= true)) then
-    if string.match(url, "%?"..item_value)
+    if (string.match(url, "%?"..item_value)
       or string.match(url, "="..item_value)
       or string.match(url, "%."..item_value)
       or string.match(url, "/"..item_value)
@@ -63,9 +63,9 @@ wget.callbacks.download_child_p = function(urlpos, parent, depth, start_url_pars
       or string.match(url, "%.css")
       or string.match(url, "%.js")
       or html == 0 
-      or string.match(url, "service%.ancestry%.com") then
-      addedtolist[url] = true
+      or string.match(url, "service%.ancestry%.com")) then
       return true
+      addedtolist[url] = true
     else
       return false
     end
